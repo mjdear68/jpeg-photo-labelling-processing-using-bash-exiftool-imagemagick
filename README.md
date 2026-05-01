@@ -31,12 +31,16 @@ This example will copy and rename all JPEG files in the `./original/` folder usi
 `img_rename ./original/ ./renamed/`
  
 **References**
-* https://exiftool.org/filename.html
-* https://stackoverflow.com/a/28835675 for camera model and datetime format
-* https://stackoverflow.com/a/75594683 for copy using `-o .`
-* https://exiftool.org/forum/index.php?msg=60709 for use of ext.args for filtering non-image files
-* partial function code logic by Google Gemini
+* [*Writing "FileName" and "Directory" tags*, ExifTool](https://exiftool.org/filename.html)
+* [*exiftool rename photos with camera model and date*, StackOverflow](https://stackoverflow.com/a/28835675) 
+* [*Exiftool: reorder images - copy them to folders based on their DateTimeOriginal [closed]*, StackOverflow](https://stackoverflow.com/a/75594683) for copy using `-o .`
+* [*Filtering Only Image Files*, ExifTool Forum](https://exiftool.org/forum/index.php?msg=60709) for use of ext.args for filtering non-image files
+* Code logic adapted from Google Gemini AI
+
+### Group Files By Time
+
 
 
 ## General References
 [*Command Line Functions*, Code Academy](https://www.codecademy.com/resources/docs/command-line/bash/functions)
+[*The Unix Workbench: Chapter 5 Bash Programming*, Sean Kross](https://bookdown.org/sean/the-unix-workbench/bash-programming.html)
