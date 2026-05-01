@@ -11,7 +11,8 @@ img_rename() {
 	fi
 	
 	# Run the command
-    exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+    exiftool -@ ext.args "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . \
              -d "%Y%m%d_%H%M%S%%-c.%%le" "$input"
 }
+

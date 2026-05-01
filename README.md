@@ -34,7 +34,8 @@ This example will copy and rename all JPEG files in the `./original/` folder usi
 * https://exiftool.org/filename.html
 * https://stackoverflow.com/a/28835675 for camera model and datetime format
 * https://stackoverflow.com/a/75594683 for copy using `-o .`
-* function code logic by Google Gemini
+* https://exiftool.org/forum/index.php?msg=60709 for use of ext.args for filtering non-image files
+* partial function code logic by Google Gemini
 
 
 ## General References
