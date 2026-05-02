@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="simple.min.css" />
+</head>
+<body>
+<h1 id="command-line-image-editing">Command Line Image Editing</h1>
+<p>Author: Michael Dear<br />
+Date: May 2026</p>
+<h2 id="aim">Aim</h2>
+<p>This project uses command-line tools to complete operations on JPEG
+images such as renaming, adding keywords and titles to EXIF metadata,
+rotating, and resizing (scaling). Where possible, automation is achieved
+through custom command-line functions.</p>
+<h2 id="tools">Tools</h2>
+<ul>
+<li>Git Bash</li>
+<li>ExifTool</li>
+<li>ImageMagick</li>
+</ul>
+<h2 id="commands">Commands</h2>
+<p>The following commands are in the order of my usual workflow, but can
+be used independently or in any order. All commands are written for the
+Git Bash command line.</p>
+<h2 id="write-title-and-keywords-to-exif-metadata">Write Title and
+Keywords to EXIF Metadata</h2>
+<p>The <code>img_group</code> function groups images into subdirectories
+by time. Each group is determined by a maximum time offset in minutes
+from the first image in the group.</p>
+<p>Pseudocode</p>
+<ul>
+<li>offset = 10</li>
+<li>group = 1</li>
+<li>make the group_1 subdirectory</li>
+<li>get the directory’s filename list</li>
+<li>get the first images’s datetime</li>
+<li>move the first image to the group_1 directory</li>
+<li>while the current image’s datetime is less than offset from the
+first image’s datetime</li>
+<li>move the current image to the group_1 directory</li>
+<li>test the next file’s datetime</li>
+<li>Add 1 to the group index: group = ++group</li>
+<li>Repeat the process until all images have been moved to a
+subdirectory</li>
+</ul>
+<p>The <code>img_write_desc</code> function writes a title, description,
+and keywords to the EXIF metadata of an image file.</p>
+<h2 id="rename-files-using-exif-metadata">Rename Files Using EXIF
+Metadata</h2>
+<p>The <code>img_rename</code> function renames an image using EXIF
+metadata. The renaming pattern is <em>(camera
+model)-yyymmdd_hhmmss_(sequence number).jpg</em>. The <em>input</em> and
+<em>output</em> folders need to passed as arguments.</p>
+<h3 id="code">Code</h3>
+<pre><code>img_rename() {
+    # $1 is the first folder (input)
+    # $2 is the second folder (output)
+    exiftool &quot;-filename&lt;$2/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}&quot; \
+             -r -o . \
+             -d &quot;%Y%m%d_%H%M%S%%-c.%%le&quot; &quot;$1&quot;</code></pre>
+<h3 id="usage-example">Usage Example</h3>
+<p>This example will copy and rename all JPEG files in the
+<code>./original</code> folder using the renaming pattern and write them
+to the <code>./renamed</code> folder.</p>
+<pre><code>img_rename ./original ./renamed</code></pre>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://exiftool.org/filename.html"><em>Writing “FileName”
+and “Directory” tags</em>, ExifTool</a></li>
+<li><a href="https://stackoverflow.com/a/28835675"><em>exiftool rename
+photos with camera model and date</em>, StackOverflow</a></li>
+<li><a href="https://stackoverflow.com/a/75594683"><em>Exiftool: reorder
+images - copy them to folders based on their DateTimeOriginal
+[closed]</em>, StackOverflow</a> for copy using <code>-o .</code></li>
+<li><a
+href="https://exiftool.org/forum/index.php?msg=60709"><em>Filtering Only
+Image Files</em>, ExifTool Forum</a> for use of ext.args for filtering
+non-image files</li>
+</ul>
+<h2 id="group-files-by-time">Group Files By Time</h2>
+<h2 id="general-references">General References</h2>
+<ul>
+<li><a
+href="https://www.codecademy.com/resources/docs/command-line/bash/functions"><em>Command
+Line Functions</em>, Code Academy</a></li>
+<li><a
+href="https://bookdown.org/sean/the-unix-workbench/bash-programming.html"><em>The
+Unix Workbench: Chapter 5 Bash Programming</em>, Sean Kross</a></li>
+</ul>
+<p>This document was compiled from markdown to html using <a
+href="https://pandoc.org/index.html">pandoc</a> with styles provided by
+<a href="https://github.com/kevquirk/simple.css">Simple CSS</a>:</p>
+<pre><code> pandoc -s -c simple.min.css README.md -o index.html</code></pre>
+</body>
+</html>
