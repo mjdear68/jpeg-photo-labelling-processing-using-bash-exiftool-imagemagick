@@ -30,6 +30,23 @@ img_group() {
 	# Run the command
     exiftool -@ ext.args "-Directory<CreateDate" \
              -r -o . \
-			 -d "$output%Y-%m-%d-_%H00" "$input"
+			 -d "$output%Y-%m-%d_%H00" "$input"
+             
+}
+
+img_write_desc() {
+	local title=$1    
+	local description=$2   
+	local keywords=$3
+	local input=$4 # input folder
+
+	# Validate input parameters
+	if [ $# -ne 4 ]; then
+	echo "Error: Function requires exactly 4 arguments (title, description, keywords, and input folder)"
+	return 1
+	fi
+	
+	# Run the command
+    exiftool -@ ext.args -overwrite_original -Title="$title" -Description="$description" -Keywords="$keywords" "$input"
              
 }

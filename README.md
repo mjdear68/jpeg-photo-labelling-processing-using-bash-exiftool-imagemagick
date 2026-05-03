@@ -86,5 +86,5 @@ The `img_write_desc` function writes a title, description, and keywords to the E
 This document was compiled from markdown to html using [pandoc](https://pandoc.org/index.html) with styles provided by [Simple CSS](https://github.com/kevquirk/simple.css):
 
 ```
- pandoc -s -c simple.min.css README.md -o index.html
+ pandoc -s -c simple.css README.md -o index.html
 ```

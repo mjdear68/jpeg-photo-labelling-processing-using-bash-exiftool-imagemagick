@@ -45,29 +45,6 @@ through custom command-line functions.</p>
 <p>The following commands are in the order of my usual workflow, but can
 be used independently or in any order. All commands are written for the
 Git Bash command line.</p>
-<h2 id="write-title-and-keywords-to-exif-metadata">Write Title and
-Keywords to EXIF Metadata</h2>
-<p>The <code>img_group</code> function groups images into subdirectories
-by time. Each group is determined by a maximum time offset in minutes
-from the first image in the group.</p>
-<p>Pseudocode</p>
-<ul>
-<li>offset = 10</li>
-<li>group = 1</li>
-<li>make the group_1 subdirectory</li>
-<li>get the directory’s filename list</li>
-<li>get the first images’s datetime</li>
-<li>move the first image to the group_1 directory</li>
-<li>while the current image’s datetime is less than offset from the
-first image’s datetime</li>
-<li>move the current image to the group_1 directory</li>
-<li>test the next file’s datetime</li>
-<li>Add 1 to the group index: group = ++group</li>
-<li>Repeat the process until all images have been moved to a
-subdirectory</li>
-</ul>
-<p>The <code>img_write_desc</code> function writes a title, description,
-and keywords to the EXIF metadata of an image file.</p>
 <h2 id="rename-files-using-exif-metadata">Rename Files Using EXIF
 Metadata</h2>
 <p>The <code>img_rename</code> function renames an image using EXIF
@@ -100,7 +77,30 @@ href="https://exiftool.org/forum/index.php?msg=60709"><em>Filtering Only
 Image Files</em>, ExifTool Forum</a> for use of ext.args for filtering
 non-image files</li>
 </ul>
-<h2 id="group-files-by-time">Group Files By Time</h2>
+<h2 id="group-files-by-date-and-hour">Group Files By Date and Hour</h2>
+<p>The <code>img_group</code> function groups images into subdirectories
+by creation date and hour e.g. “2026-04-27_0900”.</p>
+<h3 id="code-1">Code</h3>
+<pre><code>img_group() {
+    local input=$1    # input folder
+    local output=$2   # output folder
+
+    # Validate input parameters
+    if [ $# -ne 2 ]; then
+    echo &quot;Error: Function requires exactly 2 arguments (input folder and output folder)&quot;
+    return 1
+    fi
+    
+    # Run the command
+    exiftool -@ ext.args &quot;-Directory&lt;CreateDate&quot; \
+             -r -o . \
+             -d &quot;$output%Y-%m-%d-_%H00&quot; &quot;$input&quot;
+             
+}</code></pre>
+<h2 id="write-title-description-and-keywords-to-exif-metadata">Write
+Title, Description, and Keywords to EXIF Metadata</h2>
+<p>The <code>img_write_desc</code> function writes a title, description,
+and keywords to the EXIF metadata of an image file.</p>
 <h2 id="general-references">General References</h2>
 <ul>
 <li><a
@@ -113,6 +113,6 @@ Unix Workbench: Chapter 5 Bash Programming</em>, Sean Kross</a></li>
 <p>This document was compiled from markdown to html using <a
 href="https://pandoc.org/index.html">pandoc</a> with styles provided by
 <a href="https://github.com/kevquirk/simple.css">Simple CSS</a>:</p>
-<pre><code> pandoc -s -c simple.min.css README.md -o index.html</code></pre>
+<pre><code> pandoc -s -c simple.css README.md -o index.html</code></pre>
 </body>
 </html>
