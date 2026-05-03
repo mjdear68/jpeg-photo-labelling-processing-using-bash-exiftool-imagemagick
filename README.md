@@ -5,21 +5,21 @@ Date: May 2026
 
 ## Aim
 
-This project uses command-line tools to complete operations on JPEG images such as renaming, adding keywords and titles to EXIF metadata, rotating, and resizing (scaling). Where possible, automation is achieved through custom command-line functions.
+This project uses command-line tools to complete operations on JPEG images such as renaming, adding keywords and titles to image metadata, rotating, and resizing (scaling). Where possible, automation is achieved through custom command-line functions.
 
 ## Tools
 
 * Git Bash
-* ExifTool 
+* ImageTool 
 * ImageMagick
 
 ## Commands
 
 The following commands are in the order of my usual workflow, but can be used independently or in any order. All commands are written for the Git Bash command line. 
 
-## Rename Files Using EXIF Metadata
+## Rename Files Using Image Metadata
 
-The `img_rename` function renames an image using EXIF metadata. The renaming pattern is *(camera model)-yyymmdd_hhmmss_(sequence number).jpg*. The *input* and *output* folders need to passed as arguments.
+The `img_rename` function renames an image using image metadata. The renaming pattern is *(camera model)-yyymmdd_hhmmss_(sequence number).jpg*. The *input* and *output* folders need to passed as arguments.
 
 ### Code
 
@@ -27,7 +27,7 @@ The `img_rename` function renames an image using EXIF metadata. The renaming pat
 img_rename() {
     # $1 is the first folder (input)
     # $2 is the second folder (output)
-    exiftool "-filename<$2/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+    Imagetool "-filename<$2/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . \
              -d "%Y%m%d_%H%M%S%%-c.%%le" "$1"
 ```
@@ -42,10 +42,10 @@ img_rename ./original ./renamed
  
 ### References
 
-* [*Writing "FileName" and "Directory" tags*, ExifTool](https://exiftool.org/filename.html)
-* [*exiftool rename photos with camera model and date*, StackOverflow](https://stackoverflow.com/a/28835675) 
-* [*Exiftool: reorder images - copy them to folders based on their DateTimeOriginal [closed]*, StackOverflow](https://stackoverflow.com/a/75594683) for copy using `-o .`
-* [*Filtering Only Image Files*, ExifTool Forum](https://exiftool.org/forum/index.php?msg=60709) for use of ext.args for filtering non-image files
+* [*Writing "FileName" and "Directory" tags*, ImageTool](https://Imagetool.org/filename.html)
+* [*Imagetool rename photos with camera model and date*, StackOverflow](https://stackoverflow.com/a/28835675) 
+* [*Imagetool: reorder images - copy them to folders based on their DateTimeOriginal [closed]*, StackOverflow](https://stackoverflow.com/a/75594683) for copy using `-o .`
+* [*Filtering Only Image Files*, ImageTool Forum](https://Imagetool.org/forum/index.php?msg=60709) for use of ext.args for filtering non-image files
 
 
 ## Group Files By Date and Hour 
@@ -65,16 +65,16 @@ img_group() {
 	fi
 	
 	# Run the command
-    exiftool -@ ext.args "-Directory<CreateDate" \
+    Imagetool -@ ext.args "-Directory<CreateDate" \
              -r -o . \
 			 -d "$output%Y-%m-%d-_%H00" "$input"
              
 }
 ```
 
-## Write Title, Description, and Keywords to EXIF Metadata
+## Write Title, Description, and Keywords to Image Metadata
 
-The `img_write_desc` function writes a title, description, and keywords to the EXIF metadata of an image file.
+The `img_write_desc` function writes a title, description, and keywords to the image metadata of an image file.
 
 
 ## General References
@@ -82,6 +82,7 @@ The `img_write_desc` function writes a title, description, and keywords to the E
 * [*Command Line Functions*, Code Academy](https://www.codecademy.com/resources/docs/command-line/bash/functions)
 * [*The Unix Workbench: Chapter 5 Bash Programming*, Sean Kross](https://bookdown.org/sean/the-unix-workbench/bash-programming.html)
 
+https://Imagetool.org/filename.html#ex6
 
 This document was compiled from markdown to html using [pandoc](https://pandoc.org/index.html) with styles provided by [Simple CSS](https://github.com/kevquirk/simple.css):
 
