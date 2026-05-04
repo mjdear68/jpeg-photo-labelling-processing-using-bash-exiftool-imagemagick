@@ -67,3 +67,21 @@ img_cp() {
 	
 	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec cp -v -r -i {} "$output/" \; 
 }
+
+
+img_rm() {
+
+	local input=$1
+	
+	# Validate input parameters
+	if [ $# -ne 1 ]; then
+	printf "Error: Function requires exactly 1 argument (folder to delete).
+	Images will be deleted recursively.
+	Example: This command would delete all jpeg images recursively from ./input: 
+	img_rm input"
+	return 1
+	fi
+	
+	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec rm -v {} \;
+	find "$input" -type d -empty -delete ;
+}
