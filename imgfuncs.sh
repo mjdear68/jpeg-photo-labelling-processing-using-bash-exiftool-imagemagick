@@ -65,7 +65,15 @@ img_cp() {
 	return 1
 	fi
 	
-	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec cp -v -r -i {} "$output/" \; 
+	# Make output directory if it doesn't exist
+	# https://stackoverflow.com/a/59839/8299958
+	# if [ ! -d "$output" ]; then
+	  # mkdir "$output"
+	# fi
+	
+	mkdir -p -v "$output"
+	
+	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec cp -v -r -i {} "$output/" \;
 }
 
 
@@ -83,5 +91,6 @@ img_rm() {
 	fi
 	
 	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec rm -v {} \;
-	find "$input" -type d -empty -delete ;
+	
+	find "$input" -type d -empty -delete
 }
