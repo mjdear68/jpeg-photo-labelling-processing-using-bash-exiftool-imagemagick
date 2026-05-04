@@ -91,3 +91,19 @@ img_mv() {
 
 	done
 }
+
+img_cp() {
+	
+	local input=$1
+	local output=$2
+	
+	# Validate input parameters
+	if [ $# -ne 2 ]; then
+	printf "Error: Function requires exactly 2 arguments (input folder, output folder)
+	Example: This command would copy all jpeg images from ./input to ./ouput: 
+	img_cp input ouput"
+	return 1
+	fi
+	
+	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec cp -v -r -i {} "$output/" \; 
+}
