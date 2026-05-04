@@ -88,3 +88,22 @@ img_rm() {
 	
 	find "$input" -type d -empty -delete
 }
+
+img_resize() {
+	
+	local input=$1
+	local output=$2
+	local new_width=$3
+	
+	# Validate input parameters
+	if [ $# -ne 3 ]; then
+	printf "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or %).
+	Example: This command would resize all images in the folder ./input to 50% of their original width: 
+	img_resize input output 50%"
+	return 1
+	fi
+		
+	mkdir -p -v "$output"
+	
+	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec magick mogrify -path "$2" -resize "$3" "$1" \;
+}
