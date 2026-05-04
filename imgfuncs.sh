@@ -52,46 +52,6 @@ img_write_desc() {
 }
 
 
-img_mv() { 
-	local input=$1
-	local output=$2
-	local dryrun=$3   # set to false to actually move files
-	
-	# Validate input parameters
-	if [ $# -ne 3 ]; then
-	printf "Error: Function requires exactly 3 arguments (input folder, output folder, and dry-run true/false)
-	Example: This command would create a dry-run for moving all jpeg images from ./input to ./ouput: 
-	img_mv ./input ./ouput true "
-	return 1
-	fi
-
-	# Collect all matching files
-	mapfile -t files < <(
-		find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)"
-	)
-
-	total=${#files[@]}
-	count=0
-
-	for f in "${files[@]}"; do
-		((count++))
-
-		base=$(basename "$f")
-		ext="${base##*.}"
-
-		# Generate unique name with counter padded to 4 digits
-		newname="$(printf "%s_%04d.%s" "${base%.*}" "$count" "$ext")"
-
-		echo "Moving $count/$total: $f → $output/$newname"
-		if [[ "$dryrun" == true ]]; then
-		echo "[DRY‑RUN] Would move: $f → $output/$newname"
-	else
-		mv -f "$f" "$output/$newname"
-	fi
-
-	done
-}
-
 img_cp() {
 	
 	local input=$1
