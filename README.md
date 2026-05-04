@@ -77,12 +77,16 @@ img_group() {
 The `img_write_desc` function writes a title, description, and keywords to the image metadata of an image file.
 
 
+## Move Image Files
+Logic based on https://copilot.microsoft.com/shares/vJThSveM3bEtbJ5kU1fFN
+
 ## General References
 
 * [*Command Line Functions*, Code Academy](https://www.codecademy.com/resources/docs/command-line/bash/functions)
 * [*The Unix Workbench: Chapter 5 Bash Programming*, Sean Kross](https://bookdown.org/sean/the-unix-workbench/bash-programming.html)
 
 https://Imagetool.org/filename.html#ex6
+https://github.com/jonkeren/Exiftool-Commands
 
 This document was compiled from markdown to html using [pandoc](https://pandoc.org/index.html) with styles provided by [Simple CSS](https://github.com/kevquirk/simple.css):
 
