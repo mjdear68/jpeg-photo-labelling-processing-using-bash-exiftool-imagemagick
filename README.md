@@ -27,9 +27,32 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 
 ## Tools
 
-* Git Bash
-* ExifTool 
-* ImageMagick
+| Tool | Use |
+|------|---------|
+| [Git Bash]() | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
+| [ExifTool]()  | Accessing image metadata: reading, writing, and file renaming. |
+| [ImageMagick]() | Image manipulation: resizing and rotating. |
+
+: Tools Summary Table
+
+
+## Workflow 
+
+Although the functions can be used independently, they are best used as a part of an image processing workflow. My typical workflow follows the steps in the Image Processing Workflow table.
+
+| Step | Command |
+|------|---------|
+| Load imgfuncs.sh | `source imgfuncs.sh` (assuming it is in the current directory) |
+| Make temporary directories | `mkdir photos photos/original` |
+| Change to the `photos` directory | `cd photos` |
+| Camera dump into `original` directory | |
+| Rename images | `img_rename original renamed` |
+| Group images | `img_group renamed grouped` |
+| Manual review, then write title and keywords | `img_write_desc group_dir "Image title" "kwd1; kwd2; kwd3"` |
+| Copy to image archive | `img_cp grouped archive_dir` |
+| Clean up | `img_rm .` |
+
+: Image Processing Workflow
 
 ## Commands
 
