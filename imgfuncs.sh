@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Global variables
-regex_ext='.*\.\(jpg\|jpeg\)'
+regex_ext='.*\.\(jpg\|jpeg\)' # for bash commands
+etool_ext='$filename=~/.jpg|jpeg/i' # for exiftool commands
+std_ext='jpg' # standard extension for renamed files
 
 img_rename() {
 	local input=$1    # input folder
@@ -16,9 +18,9 @@ img_rename() {
 	fi
 	
 	# Run the command
-    exiftool -ext regex_ext "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+    exiftool -if $etool_ext "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . \
-             -d "%Y%m%d_%H%M%S%%-c.%%le" "$input"
+             -d "%Y%m%d_%H%M%S%%-c.$std_ext" "$input"
 }
 
 
@@ -36,7 +38,7 @@ img_group() {
 	fi
 	
 	# Run the command
-    exiftool -@ ext.args "-Directory<CreateDate" \
+    exiftool -if $etool_ext "-Directory<CreateDate" \
              -r -o . \
 			 -d "$output/%Y-%m-%d_%H00" "$input"
              
@@ -56,7 +58,7 @@ img_write_desc() {
 	fi
 	
 	# Run the command
-    exiftool -@ ext.args -overwrite_original -Title="$title" -Keywords="$keywords" "$input"
+    exiftool -if $etool_ext -overwrite_original -Title="$title" -Keywords="$keywords" "$input"
              
 }
 
@@ -76,7 +78,7 @@ img_cp() {
 	
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex img_ext -exec cp -v -r -i {} "$output/" \;
+	find "$input" -type f -iregex $regex_ext -exec cp -v -r -i {} "$output/" \;
 }
 
 
@@ -93,7 +95,7 @@ img_rm() {
 	return 1
 	fi
 	
-	find "$input" -type f -iregex img_ext -exec rm -v {} \;
+	find "$input" -type f -iregex $regex_ext -exec rm -v {} \;
 	
 	find "$input" -type d -empty -delete
 }
@@ -114,7 +116,7 @@ img_resize() {
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex img_ext -exec magick mogrify -path "$2" -resize "$3" "$1" \;
+	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$2" -resize "$3" "$1" \;
 }
 
 
@@ -134,5 +136,5 @@ img_rotate() {
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex img_ext -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
+	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
 }
