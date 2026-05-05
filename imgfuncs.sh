@@ -85,7 +85,7 @@ img_rm() {
 	if [ $# -ne 1 ]; then
 		echo "Error: Function requires exactly 1 argument (folder to delete).
 		Images will be deleted recursively."
-		echo "Example: This command would delete all jpeg images recursively from ./input:"
+		echo "Example: This command would delete all jpeg images and empty directories recursively from ./input:"
 		echo "img_rm input"
 	return 1
 	fi
@@ -104,7 +104,7 @@ img_resize() {
 	# Validate input parameters
 	if [ $# -ne 3 ]; then
 		echo "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or percent)."
-		echo "Example: This command would resize all images in the folder ./input to 50% of their original width:"
+		echo "Example: This command would resize all jpeg images in ./input to 50% of their original width:"
 		echo "img_resize input output 50%"
 	return 1
 	fi

@@ -17,6 +17,10 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | img_rename | Rename images using image metadata. Format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* |
 | img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour e.g. 2026-05-05_1700 |
 | img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
+| img_cp | Copy all jpeg images from the input directory to the ouput directory. |
+| img_rm | Delete all jpeg images and empty directories recursively from the input directory.|
+| img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
+| img_rotate | Rotates all jpeg images in the input directory n degrees clockwise. Writes rotated images to the output directory. |
 
 : Functions Summary Table  
 
