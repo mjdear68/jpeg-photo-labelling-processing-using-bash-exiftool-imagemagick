@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Global variables
-img_ext=".*\.\(jpg\|jpeg\)"
+regex_ext='.*\.\(jpg\|jpeg\)'
 
 img_rename() {
 	local input=$1    # input folder
@@ -16,7 +16,7 @@ img_rename() {
 	fi
 	
 	# Run the command
-    exiftool -@ ext.args "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+    exiftool -ext regex_ext "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . \
              -d "%Y%m%d_%H%M%S%%-c.%%le" "$input"
 }
