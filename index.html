@@ -36,12 +36,11 @@ imgfuncs.sh file contains bash functions for renaming, adding keywords
 and titles to metadata, rotating, and resizing jpeg images. The
 functions work on a directory or individual file level.</p>
 <h2 id="functions">Functions</h2>
-<p><span class="citation"
-data-cites="tbl-func_summ">@tbl-func_summ</span> lists the functions and
-their purpose. Calling a function without parameters will print a
-description of the function and an example of its usage.</p>
-<table id="tbl-func_summ">
-<caption>Functions summary table</caption>
+<p>The Functions Summary Table lists the functions and their purpose.
+Calling a function without parameters will print a description of the
+function and a usage example.</p>
+<table>
+<caption>Functions Summary Table</caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -69,14 +68,114 @@ e.g. 2026-05-05_1700</td>
 <td>Writes a title and keywords to all jpeg images in the input
 directory.</td>
 </tr>
+<tr>
+<td>img_cp</td>
+<td>Copy all jpeg images from the input directory to the ouput
+directory.</td>
+</tr>
+<tr>
+<td>img_rm</td>
+<td>Delete all jpeg images and empty directories recursively from the
+input directory.</td>
+</tr>
+<tr>
+<td>img_resize</td>
+<td>Resizes all jpeg images in the input directory to a given pixel
+width or percentage of original size. Writes resized images to the
+output directory.</td>
+</tr>
+<tr>
+<td>img_rotate</td>
+<td>Rotates all jpeg images in the input directory n degrees clockwise.
+Writes rotated images to the output directory.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="tools">Tools</h2>
-<ul>
-<li>Git Bash</li>
-<li>ExifTool</li>
-<li>ImageMagick</li>
-</ul>
+<table>
+<caption>Tools Summary Table</caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="">Git Bash</a></td>
+<td>Shell: executing the functions in imgfuncs.sh; copying and deleting
+files</td>
+</tr>
+<tr>
+<td><a href="">ExifTool</a></td>
+<td>Accessing image metadata: reading, writing, and file renaming.</td>
+</tr>
+<tr>
+<td><a href="">ImageMagick</a></td>
+<td>Image manipulation: resizing and rotating.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="workflow">Workflow</h2>
+<p>Although the functions can be used independently, they are best used
+as a part of an image processing workflow. My typical workflow follows
+the steps in the Image Processing Workflow table.</p>
+<table>
+<caption>Image Processing Workflow</caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Load imgfuncs.sh</td>
+<td><code>source imgfuncs.sh</code> (assuming it is in the current
+directory)</td>
+</tr>
+<tr>
+<td>Make temporary directories</td>
+<td><code>mkdir photos photos/original</code></td>
+</tr>
+<tr>
+<td>Change to the <code>photos</code> directory</td>
+<td><code>cd photos</code></td>
+</tr>
+<tr>
+<td>Camera dump into <code>original</code> directory</td>
+<td></td>
+</tr>
+<tr>
+<td>Rename images</td>
+<td><code>img_rename original renamed</code></td>
+</tr>
+<tr>
+<td>Group images</td>
+<td><code>img_group renamed grouped</code></td>
+</tr>
+<tr>
+<td>Manual review, then write title and keywords</td>
+<td><code>img_write_desc group_dir "Image title" "kwd1; kwd2; kwd3"</code></td>
+</tr>
+<tr>
+<td>Copy to image archive</td>
+<td><code>img_cp grouped archive_dir</code></td>
+</tr>
+<tr>
+<td>Clean up</td>
+<td><code>img_rm .</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="commands">Commands</h2>
 <p>The following commands are in the order of my usual workflow, but can
 be used independently or in any order. All commands are written for the

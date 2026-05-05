@@ -1,0 +1,1 @@
+pandoc -s -c simple.css README.md -o index.html
