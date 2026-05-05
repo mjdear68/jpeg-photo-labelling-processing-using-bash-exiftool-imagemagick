@@ -107,3 +107,23 @@ img_resize() {
 	
 	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec magick mogrify -path "$2" -resize "$3" "$1" \;
 }
+
+
+img_rotate() {
+	
+	local input=$1
+	local output=$2
+	local new_width=$3
+	
+	# Validate input parameters
+	if [ $# -ne 3 ]; then
+	printf "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and the rotation angle in degrees).
+	Example: This command would rotate all images in the folder ./input 90 degrees clockwise: 
+	img_resize input output 90"
+	return 1
+	fi
+		
+	mkdir -p -v "$output"
+	
+	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
+}
