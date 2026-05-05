@@ -3,14 +3,23 @@
 Author: Michael Dear  
 Date: May 2026
 
-## Aim
+## About
 
-This project uses command-line tools to complete operations on JPEG images such as renaming, adding keywords and titles to image metadata, rotating, and resizing (scaling). Where possible, automation is achieved through custom command-line functions.
+This project uses command-line tools to process JPEG images. The imgfuncs.sh file contains bash functions for renaming, adding keywords and titles to metadata, rotating, and resizing jpeg images. The functions work on a directory or individual file level.
+
+## Functions
+
+| Name | Purpose |
+|------|---------|
+| img_rename | Rename images using image metadata. Format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* |
+| img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour e.g. 2026-05-05_1700 |
+  
+
 
 ## Tools
 
 * Git Bash
-* ImageTool 
+* ExifTool 
 * ImageMagick
 
 ## Commands

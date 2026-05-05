@@ -30,11 +30,38 @@
 <h1 id="command-line-image-editing">Command Line Image Editing</h1>
 <p>Author: Michael Dear<br />
 Date: May 2026</p>
-<h2 id="aim">Aim</h2>
-<p>This project uses command-line tools to complete operations on JPEG
-images such as renaming, adding keywords and titles to EXIF metadata,
-rotating, and resizing (scaling). Where possible, automation is achieved
-through custom command-line functions.</p>
+<h2 id="about">About</h2>
+<p>This project uses command-line tools to process JPEG images. The
+imgfuncs.sh file contains bash functions for renaming, adding keywords
+and titles to metadata, rotating, and resizing jpeg images. The
+functions work on a directory or individual file level.</p>
+<h2 id="functions">Functions</h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Name</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>img_rename</td>
+<td>Rename images using image metadata. Format <em>(camera
+model)-yyymmdd_hhmmss_(sequence number).jpg</em></td>
+</tr>
+<tr>
+<td>img_group</td>
+<td>Copies jpeg images from the input directory into subdirectories of
+the output directory grouped by create date and hour
+e.g. 2026-05-05_1700</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
 <h2 id="tools">Tools</h2>
 <ul>
 <li>Git Bash</li>
@@ -45,9 +72,9 @@ through custom command-line functions.</p>
 <p>The following commands are in the order of my usual workflow, but can
 be used independently or in any order. All commands are written for the
 Git Bash command line.</p>
-<h2 id="rename-files-using-exif-metadata">Rename Files Using EXIF
+<h2 id="rename-files-using-image-metadata">Rename Files Using Image
 Metadata</h2>
-<p>The <code>img_rename</code> function renames an image using EXIF
+<p>The <code>img_rename</code> function renames an image using image
 metadata. The renaming pattern is <em>(camera
 model)-yyymmdd_hhmmss_(sequence number).jpg</em>. The <em>input</em> and
 <em>output</em> folders need to passed as arguments.</p>
@@ -55,7 +82,7 @@ model)-yyymmdd_hhmmss_(sequence number).jpg</em>. The <em>input</em> and
 <pre><code>img_rename() {
     # $1 is the first folder (input)
     # $2 is the second folder (output)
-    exiftool &quot;-filename&lt;$2/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}&quot; \
+    Imagetool &quot;-filename&lt;$2/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}&quot; \
              -r -o . \
              -d &quot;%Y%m%d_%H%M%S%%-c.%%le&quot; &quot;$1&quot;</code></pre>
 <h3 id="usage-example">Usage Example</h3>
@@ -65,17 +92,17 @@ to the <code>./renamed</code> folder.</p>
 <pre><code>img_rename ./original ./renamed</code></pre>
 <h3 id="references">References</h3>
 <ul>
-<li><a href="https://exiftool.org/filename.html"><em>Writing “FileName”
-and “Directory” tags</em>, ExifTool</a></li>
-<li><a href="https://stackoverflow.com/a/28835675"><em>exiftool rename
+<li><a href="https://Imagetool.org/filename.html"><em>Writing “FileName”
+and “Directory” tags</em>, ImageTool</a></li>
+<li><a href="https://stackoverflow.com/a/28835675"><em>Imagetool rename
 photos with camera model and date</em>, StackOverflow</a></li>
-<li><a href="https://stackoverflow.com/a/75594683"><em>Exiftool: reorder
-images - copy them to folders based on their DateTimeOriginal
+<li><a href="https://stackoverflow.com/a/75594683"><em>Imagetool:
+reorder images - copy them to folders based on their DateTimeOriginal
 [closed]</em>, StackOverflow</a> for copy using <code>-o .</code></li>
 <li><a
-href="https://exiftool.org/forum/index.php?msg=60709"><em>Filtering Only
-Image Files</em>, ExifTool Forum</a> for use of ext.args for filtering
-non-image files</li>
+href="https://Imagetool.org/forum/index.php?msg=60709"><em>Filtering
+Only Image Files</em>, ImageTool Forum</a> for use of ext.args for
+filtering non-image files</li>
 </ul>
 <h2 id="group-files-by-date-and-hour">Group Files By Date and Hour</h2>
 <p>The <code>img_group</code> function groups images into subdirectories
@@ -92,15 +119,18 @@ by creation date and hour e.g. “2026-04-27_0900”.</p>
     fi
     
     # Run the command
-    exiftool -@ ext.args &quot;-Directory&lt;CreateDate&quot; \
+    Imagetool -@ ext.args &quot;-Directory&lt;CreateDate&quot; \
              -r -o . \
              -d &quot;$output%Y-%m-%d-_%H00&quot; &quot;$input&quot;
              
 }</code></pre>
-<h2 id="write-title-description-and-keywords-to-exif-metadata">Write
-Title, Description, and Keywords to EXIF Metadata</h2>
+<h2 id="write-title-description-and-keywords-to-image-metadata">Write
+Title, Description, and Keywords to Image Metadata</h2>
 <p>The <code>img_write_desc</code> function writes a title, description,
-and keywords to the EXIF metadata of an image file.</p>
+and keywords to the image metadata of an image file.</p>
+<h2 id="move-image-files">Move Image Files</h2>
+<p>Logic based on
+https://copilot.microsoft.com/shares/vJThSveM3bEtbJ5kU1fFN</p>
 <h2 id="general-references">General References</h2>
 <ul>
 <li><a
@@ -110,6 +140,8 @@ Line Functions</em>, Code Academy</a></li>
 href="https://bookdown.org/sean/the-unix-workbench/bash-programming.html"><em>The
 Unix Workbench: Chapter 5 Bash Programming</em>, Sean Kross</a></li>
 </ul>
+<p>https://Imagetool.org/filename.html#ex6
+https://github.com/jonkeren/Exiftool-Commands</p>
 <p>This document was compiled from markdown to html using <a
 href="https://pandoc.org/index.html">pandoc</a> with styles provided by
 <a href="https://github.com/kevquirk/simple.css">Simple CSS</a>:</p>
