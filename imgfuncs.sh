@@ -47,7 +47,7 @@ img_write_desc() {
 	# Validate input parameters
 	if [ $# -ne 3 ]; then
 		echo "Error: Function requires exactly 3 arguments (input folder, title, and keywords)"
-		echo "Example: This command will write a title and keywords to all jpeg images in the inout directory. Keywords should be separated by semi-colons for MS Windows."
+		echo "Example: This command will write a title and keywords to all jpeg images in the input directory. Keywords should be separated by semi-colons for MS Windows."
 		echo 'img_write_desc ./input "Autumn leaves in a suburban street" "landscape; trees; autumn" '
 	return 1
 	fi
