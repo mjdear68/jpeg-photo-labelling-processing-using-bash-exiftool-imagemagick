@@ -9,11 +9,16 @@ This project uses command-line tools to process JPEG images. The imgfuncs.sh fil
 
 ## Functions
 
+The Functions Summary Table lists the functions and their purpose. Calling a function without parameters will print a description of the function and a usage example.
+
+
 | Name | Purpose |
 |------|---------|
 | img_rename | Rename images using image metadata. Format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* |
 | img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour e.g. 2026-05-05_1700 |
-  
+| img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
+
+: Functions Summary Table  
 
 
 ## Tools

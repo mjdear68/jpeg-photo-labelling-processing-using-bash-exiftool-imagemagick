@@ -36,7 +36,12 @@ imgfuncs.sh file contains bash functions for renaming, adding keywords
 and titles to metadata, rotating, and resizing jpeg images. The
 functions work on a directory or individual file level.</p>
 <h2 id="functions">Functions</h2>
-<table>
+<p><span class="citation"
+data-cites="tbl-func_summ">@tbl-func_summ</span> lists the functions and
+their purpose. Calling a function without parameters will print a
+description of the function and an example of its usage.</p>
+<table id="tbl-func_summ">
+<caption>Functions summary table</caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -59,9 +64,13 @@ model)-yyymmdd_hhmmss_(sequence number).jpg</em></td>
 the output directory grouped by create date and hour
 e.g. 2026-05-05_1700</td>
 </tr>
+<tr>
+<td>img_write_desc</td>
+<td>Writes a title and keywords to all jpeg images in the input
+directory.</td>
+</tr>
 </tbody>
 </table>
-<h2 id="usage">Usage</h2>
 <h2 id="tools">Tools</h2>
 <ul>
 <li>Git Bash</li>
