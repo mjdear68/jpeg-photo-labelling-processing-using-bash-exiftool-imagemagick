@@ -53,3 +53,5 @@ Although the functions can be used independently, they are best used as a part o
 | Clean up | `img_rm .` |
 
 : Image Processing Workflow
+
+Resizing and rotating images is not a part of my regular workflow. I usually complete these operations as the need arises by copying the relevant files to a separate directory after the main processing workflow.

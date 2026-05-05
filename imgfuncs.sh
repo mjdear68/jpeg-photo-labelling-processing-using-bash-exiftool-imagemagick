@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Global variables
+img_ext=".*\.\(jpg\|jpeg\)"
+
 img_rename() {
 	local input=$1    # input folder
     local output=$2   # output folder
@@ -73,7 +76,7 @@ img_cp() {
 	
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec cp -v -r -i {} "$output/" \;
+	find "$input" -type f -iregex img_ext -exec cp -v -r -i {} "$output/" \;
 }
 
 
@@ -90,7 +93,7 @@ img_rm() {
 	return 1
 	fi
 	
-	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec rm -v {} \;
+	find "$input" -type f -iregex img_ext -exec rm -v {} \;
 	
 	find "$input" -type d -empty -delete
 }
@@ -111,7 +114,7 @@ img_resize() {
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec magick mogrify -path "$2" -resize "$3" "$1" \;
+	find "$input" -type f -iregex img_ext -exec magick mogrify -path "$2" -resize "$3" "$1" \;
 }
 
 
@@ -131,5 +134,5 @@ img_rotate() {
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex ".*\.\(jpg\|jpeg\)" -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
+	find "$input" -type f -iregex img_ext -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
 }
