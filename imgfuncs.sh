@@ -6,7 +6,9 @@ img_rename() {
 
 	# Validate input parameters
 	if [ $# -ne 2 ]; then
-	echo "Error: Function requires exactly 2 arguments (input folder and output folder)"
+		echo "Error: Function requires exactly 2 arguments (input folder and output folder)"
+		echo "Example: This command will rename all jpeg images using the format camera-make_yyyymmdd_hhmmss. A sequential number will be added to the end of filename collisions. Files are copied to the output directory."
+		echo "img_rename input output"
 	return 1
 	fi
 	
@@ -18,12 +20,15 @@ img_rename() {
 
 
 img_group() {
+
 	local input=$1    # input folder
 	local output=$2   # output folder
 
 	# Validate input parameters
 	if [ $# -ne 2 ]; then
-	echo "Error: Function requires exactly 2 arguments (input folder and output folder)"
+		echo "Error: Function requires exactly 2 arguments (input folder and output folder)"
+		echo "Example: This command will copy the jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour."
+		echo "img_group input output"
 	return 1
 	fi
 	
@@ -41,8 +46,9 @@ img_write_desc() {
 
 	# Validate input parameters
 	if [ $# -ne 3 ]; then
-	printf 'Error: Function requires exactly 3 arguments (input folder, title, and keywords)
-	Example: img_write_desc ./input "Autumn leaves in a suburban street" "landscape; trees; autumn" '
+		echo "Error: Function requires exactly 3 arguments (input folder, title, and keywords)"
+		echo "Example: This command will write a title and keywords to all jpeg images in the inout directory. Keywords should be separated by semi-colons for MS Windows."
+		echo 'img_write_desc ./input "Autumn leaves in a suburban street" "landscape; trees; autumn" '
 	return 1
 	fi
 	
@@ -59,9 +65,9 @@ img_cp() {
 	
 	# Validate input parameters
 	if [ $# -ne 2 ]; then
-	printf "Error: Function requires exactly 2 arguments (input folder, output folder)
-	Example: This command would copy all jpeg images from ./input to ./ouput: 
-	img_cp input ouput"
+		echo "Error: Function requires exactly 2 arguments (input folder, output folder)"
+		echo "Example: This command would copy all jpeg images from ./input to ./ouput:" 
+		echo "img_cp input ouput"
 	return 1
 	fi
 	
@@ -77,10 +83,10 @@ img_rm() {
 	
 	# Validate input parameters
 	if [ $# -ne 1 ]; then
-	printf "Error: Function requires exactly 1 argument (folder to delete).
-	Images will be deleted recursively.
-	Example: This command would delete all jpeg images recursively from ./input: 
-	img_rm input"
+		echo "Error: Function requires exactly 1 argument (folder to delete).
+		Images will be deleted recursively."
+		echo "Example: This command would delete all jpeg images recursively from ./input:"
+		echo "img_rm input"
 	return 1
 	fi
 	
@@ -97,9 +103,9 @@ img_resize() {
 	
 	# Validate input parameters
 	if [ $# -ne 3 ]; then
-	printf "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or %).
-	Example: This command would resize all images in the folder ./input to 50% of their original width: 
-	img_resize input output 50%"
+		echo "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or percent)."
+		echo "Example: This command would resize all images in the folder ./input to 50% of their original width:"
+		echo "img_resize input output 50%"
 	return 1
 	fi
 		
@@ -117,9 +123,9 @@ img_rotate() {
 	
 	# Validate input parameters
 	if [ $# -ne 3 ]; then
-	printf "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and the rotation angle in degrees).
-	Example: This command would rotate all images in the folder ./input 90 degrees clockwise: 
-	img_resize input output 90"
+		echo "Error: Function requires exactly 3 arguments (input directory or filename, output directory, and the rotation angle in degrees)."
+		echo "Example: This command would rotate all images in the folder ./input 90 degrees clockwise:"
+		echo "img_resize input output 90"
 	return 1
 	fi
 		
