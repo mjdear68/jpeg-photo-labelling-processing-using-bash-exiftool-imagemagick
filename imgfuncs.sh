@@ -19,9 +19,9 @@ img_rename() {
 	
 	# Run the command
     # exiftool -if $etool_ext \
-	find "$input" -type f -iregex $regex_ext | exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
-             -r -o . \
-			 -d "%Y%m%d_%H%M%S%%-c.$std_ext" -@ -
+	find "$input" -type f -iregex $regex_ext | \
+			exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+             -r -o . -d "%Y%m%d_%H%M%S%%-c.$std_ext" -@ -
              #-d "%Y%m%d_%H%M%S%%-c.$std_ext" "$input"
 }
 
@@ -41,9 +41,11 @@ img_group() {
 	
 	# Run the command
     # exiftool -if $etool_ext "-Directory<CreateDate" \
-	find "$input" -type f -iregex $regex_ext | exiftool "-Directory<CreateDate" \
-             -r -o . \
-			 -d "$output/%Y-%m-%d_%H00" "$input"
+	find "$input" -type f -iregex $regex_ext | \
+			exiftool "-Directory<CreateDate" \
+             -r -o . -d "$output/%Y-%m-%d_%H00" -@ -
+			# -d "$output/%Y-%m-%d_%H00" "$input"
+			 
              
 }
 
@@ -62,8 +64,9 @@ img_write_desc() {
 	
 	# Run the command
     # exiftool -if $etool_ext -overwrite_original \
-	find "$input" -type f -iregex $regex_ext | exiftool -overwrite_original \
-		-Title="$title" -Keywords="$keywords" "$input"
+	find "$input" -type f -iregex $regex_ext | \
+		exiftool -overwrite_original -Title="$title" -Keywords="$keywords" -@ -
+		# -Title="$title" -Keywords="$keywords" "$input"
              
 }
 
