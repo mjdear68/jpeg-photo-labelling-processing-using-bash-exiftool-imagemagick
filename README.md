@@ -32,9 +32,9 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 
 | Tool | Use |
 |------|---------|
-| [Git Bash (5.2.26(1)-release (x86_64-pc-msys))](https://git-scm.com/) | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
+| [Git Bash (5.2.26(1)-release x86_64-pc-msys)](https://git-scm.com/) | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
 | [ExifTool (13.45)](https://exiftool.org/)  | Accessing image metadata: reading, writing, and file renaming. |
-| [ImageMagick](https://imagemagick.org/) | Image manipulation: resizing and rotating. |
+| [ImageMagick (7.1.2-17 Q16-HDRI x64)](https://imagemagick.org/) | Image manipulation: resizing and rotating. |
 
 : Tools Summary Table
 
