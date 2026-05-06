@@ -2,7 +2,6 @@
 
 # Global variables
 regex_ext='.*\.\(jpg\|jpeg\)' # regular expression for `find`
-# etool_ext='$filename=~/.jpg|jpeg/i' # for exiftool commands
 std_ext='jpg' # standard extension for renamed files
 
 img_rename() {
@@ -22,7 +21,6 @@ img_rename() {
 	find "$input" -type f -iregex $regex_ext | \
 			exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . -d "%Y%m%d_%H%M%S%%-c.$std_ext" -@ -
-             #-d "%Y%m%d_%H%M%S%%-c.$std_ext" "$input"
 }
 
 
@@ -44,9 +42,6 @@ img_group() {
 	find "$input" -type f -iregex $regex_ext | \
 			exiftool "-Directory<CreateDate" \
              -r -o . -d "$output/%Y-%m-%d_%H00" -@ -
-			# -d "$output/%Y-%m-%d_%H00" "$input"
-			 
-             
 }
 
 img_write_desc() {
@@ -66,8 +61,6 @@ img_write_desc() {
     # exiftool -if $etool_ext -overwrite_original \
 	find "$input" -type f -iregex $regex_ext | \
 		exiftool -overwrite_original -Title="$title" -Keywords="$keywords" -@ -
-		# -Title="$title" -Keywords="$keywords" "$input"
-             
 }
 
 
