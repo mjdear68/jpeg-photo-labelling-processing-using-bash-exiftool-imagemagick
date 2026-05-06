@@ -18,9 +18,11 @@ img_rename() {
 	fi
 	
 	# Run the command
-    exiftool -if $etool_ext "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
+    # exiftool -if $etool_ext \
+	find "$input" -type f -iregex $regex_ext | exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . \
-             -d "%Y%m%d_%H%M%S%%-c.$std_ext" "$input"
+			 -d "%Y%m%d_%H%M%S%%-c.$std_ext" -@ -
+             #-d "%Y%m%d_%H%M%S%%-c.$std_ext" "$input"
 }
 
 
