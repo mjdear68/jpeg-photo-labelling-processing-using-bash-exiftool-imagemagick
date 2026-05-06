@@ -1,4 +1,4 @@
-# Command Line Image Editing
+# JPEG Photographic Image Labelling and Processing Using Bash, ExifTool, and ImageMagick
 
 Author: Michael Dear  
 Date: May 2026
