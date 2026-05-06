@@ -5,7 +5,10 @@ Date: May 2026
 
 ## About
 
-This project uses command-line tools to process JPEG images. The imgfuncs.sh file contains bash functions for renaming, adding keywords and titles to metadata, rotating, and resizing jpeg images. The functions work on a directory or individual file level.
+This project uses *ExifTool* and *ImageMagick* commands to process JPEG photographic images. 
+The imgfuncs.sh file contains *Bash* functions for renaming files with metadata, writing 
+keywords and titles to metadata, and rotating and resizing images. The functions work on a 
+directory or individual-file level.
 
 ## Functions
 
@@ -29,9 +32,9 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 
 | Tool | Use |
 |------|---------|
-| [Git Bash]() | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
-| [ExifTool]()  | Accessing image metadata: reading, writing, and file renaming. |
-| [ImageMagick]() | Image manipulation: resizing and rotating. |
+| [Git Bash (5.2.26(1)-release (x86_64-pc-msys))](https://git-scm.com/) | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
+| [ExifTool (13.45)](https://exiftool.org/)  | Accessing image metadata: reading, writing, and file renaming. |
+| [ImageMagick](https://imagemagick.org/) | Image manipulation: resizing and rotating. |
 
 : Tools Summary Table
 
