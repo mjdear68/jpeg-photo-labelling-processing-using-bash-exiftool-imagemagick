@@ -49,6 +49,7 @@ Although the functions can be used independently, they are best used as a part o
 | Make temporary directories | `mkdir photos photos/original` |
 | Change to the `photos` directory | `cd photos` |
 | Camera dump into `original` directory | Drag-and-drop or your preferred method |
+| Manual review - delete unwanted images | File manager or photo organiser GUI |
 | Rename images | `img_rename original renamed` |
 | Group images | `img_group renamed grouped` |
 | Manual review, then write title and keywords | `img_write_desc group_dir "Image title" "kwd1; kwd2; kwd3"` |
