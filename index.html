@@ -27,14 +27,18 @@
   <link rel="stylesheet" href="simple.css" />
 </head>
 <body>
-<h1 id="command-line-image-editing">Command Line Image Editing</h1>
+<h1
+id="jpeg-photographic-image-labelling-and-processing-using-bash-exiftool-and-imagemagick">JPEG
+Photographic Image Labelling and Processing Using Bash, ExifTool, and
+ImageMagick</h1>
 <p>Author: Michael Dear<br />
 Date: May 2026</p>
 <h2 id="about">About</h2>
-<p>This project uses command-line tools to process JPEG images. The
-imgfuncs.sh file contains bash functions for renaming, adding keywords
-and titles to metadata, rotating, and resizing jpeg images. The
-functions work on a directory or individual file level.</p>
+<p>This project uses <em>ExifTool</em> and <em>ImageMagick</em> commands
+to process JPEG photographic images. The imgfuncs.sh file contains
+<em>Bash</em> functions for renaming files with metadata, writing
+keywords and titles to metadata, and rotating and resizing images. The
+functions work on a directory or individual-file level.</p>
 <h2 id="functions">Functions</h2>
 <p>The Functions Summary Table lists the functions and their purpose.
 Calling a function without parameters will print a description of the
@@ -106,16 +110,18 @@ Writes rotated images to the output directory.</td>
 </thead>
 <tbody>
 <tr>
-<td><a href="">Git Bash</a></td>
+<td><a href="https://git-scm.com/">Git Bash (5.2.26(1)-release
+x86_64-pc-msys)</a></td>
 <td>Shell: executing the functions in imgfuncs.sh; copying and deleting
 files</td>
 </tr>
 <tr>
-<td><a href="">ExifTool</a></td>
+<td><a href="https://exiftool.org/">ExifTool (13.45)</a></td>
 <td>Accessing image metadata: reading, writing, and file renaming.</td>
 </tr>
 <tr>
-<td><a href="">ImageMagick</a></td>
+<td><a href="https://imagemagick.org/">ImageMagick (7.1.2-17 Q16-HDRI
+x64)</a></td>
 <td>Image manipulation: resizing and rotating.</td>
 </tr>
 </tbody>
@@ -153,6 +159,10 @@ is in the current directory)</td>
 <tr>
 <td>Camera dump into <code>original</code> directory</td>
 <td>Drag-and-drop or your preferred method</td>
+</tr>
+<tr>
+<td>Manual review - delete unwanted images</td>
+<td>File manager or photo organiser GUI</td>
 </tr>
 <tr>
 <td>Rename images</td>
