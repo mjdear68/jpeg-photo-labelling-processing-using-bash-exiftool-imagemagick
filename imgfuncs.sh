@@ -44,6 +44,33 @@ img_group() {
              -r -o . -d "$output/%Y-%m-%d_%H00" -@ -
 }
 
+# sort15() {
+    # exiftool -o . '-Directory<./Sorted/$CreateDate/${CreateDate#;my $m=substr($_,15,2);$_=sprintf("%02d",int($m/15)*15)}min' -d "%Y-%m-%d_%H" "$1"
+# }
+
+img_group_mins() {
+	# Logic by Gemini AI https://gemini.google.com/share/015813c78df3
+	
+    # Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: img_group_mins [input_folder] [output_folder] [interval_in_minutes] "
+        echo "Example: img_group_mins ./original ./grouped 30"
+        return 1
+    fi
+
+    local input=$1    # input folder
+	local output=$2   # output folder
+	local mins=$3	  # minutes per interval (0 < min <=60)
+
+    # The '"$mins"' syntax temporarily steps out of the single quotes to read the Bash variable, then steps back in.
+    find "$input" -type f -iregex $regex_ext | \
+	exiftool  '-Directory<$CreateDate/${CreateDate#;/(\d+):\d+$/;$_=sprintf("%02d",int($1/'"$mins"')*'"$mins"')}min' \
+             -o . -d "$output/%Y-%m-%d_%H" \
+             -if '$CreateDate' \
+             -@ -
+}
+
+
 img_write_desc() {
 	local input=$1 		# input folder
 	local title=$2    
