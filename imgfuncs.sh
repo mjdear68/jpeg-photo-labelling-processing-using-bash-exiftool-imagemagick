@@ -215,5 +215,5 @@ img_rotate() {
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$output" -resize "$angle" {} +
+	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$output" -rotate "$angle" {} +
 }
