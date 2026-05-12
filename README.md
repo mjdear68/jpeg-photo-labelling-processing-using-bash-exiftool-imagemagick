@@ -18,7 +18,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | Name | Purpose |
 |------|---------|
 | img_rename | Rename images using image metadata. Output format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* . A sequential number will be added to the end of filename collisions. |
-| img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour e.g. 2026-05-05_1700 |
+| img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and a user-provided time interval in minutes e.g. 2026-05-05_17/30min/ |
 | img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
 | img_rm | Delete all jpeg images and empty directories recursively from the input directory.|
@@ -50,12 +50,12 @@ Although the functions can be used independently, they are best used as a part o
 | Change to the `photos` directory | `cd photos` |
 | Camera dump into `original` directory | Drag-and-drop or your preferred method |
 | Manual review - delete unwanted images | File manager or photo organiser GUI |
-| Rename images | `img_rename original renamed` |
-| Group images | `img_group renamed grouped` |
-| Manual review, then write title and keywords | `img_write_desc group_dir "Image title" "kwd1; kwd2; kwd3"` |
-| Copy to image archive | `img_cp grouped archive_dir` |
-| Clean up | `img_rm .` |
+| Rename images | `img_rename original output/renamed` |
+| Group images | `img_group output/renamed output/grouped` |
+| Manual review, then write title and keywords | `img_write_desc output/grouped/date_hour/mins "Image title" "kwd1; kwd2; kwd3"` |
+| Copy to image archive | `img_cp output/grouped archive_dir` |
+| Clean up | `img_rm output` |
 
 : Image Processing Workflow
 
-Resizing and rotating images is not a part of my regular workflow. I usually complete these operations as the need arises by copying the relevant files to a separate directory after the main processing workflow.
+I usually complete resizing and rotating of individual files after the main processing workflow.
