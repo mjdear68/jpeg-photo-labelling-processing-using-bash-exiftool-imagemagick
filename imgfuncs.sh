@@ -92,9 +92,20 @@ img_rm() {
         return 1
     fi
 	
-	find "$input" -type f -iregex $regex_ext -exec rm -v {} \;
-	
-	find "$input" -type d -empty -delete
+	# Get user confirmation
+	read -p "WARNING: This process cannot be undone. Proceed? [y/N]: " choice
+    
+    case "$choice" in 
+      [yY][eE][sS]|[yY]) 
+      echo "Deleting image files and empty directories from '$input' ..."
+      find "$input" -type f -iregex $regex_ext -exec rm -v {} \;
+	  find "$input" -type d -empty -delete
+        ;;
+      *)
+        echo "Operation aborted."
+        return 0
+        ;;
+    esac
 }
 
 img_resize() {
