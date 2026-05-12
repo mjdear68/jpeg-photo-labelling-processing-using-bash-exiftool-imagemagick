@@ -3,10 +3,7 @@
 [Dd]esktop.ini
 
 # Output Folders
-/grouped/
-/renamed/
-/resized/
-/rotated/
+/output/
 
 
 *.pdf
