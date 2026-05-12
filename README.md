@@ -17,7 +17,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 
 | Name | Purpose |
 |------|---------|
-| img_rename | Rename images using image metadata. Output format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* . A sequential number will be added to the end of filename collisions. |
+| img_rename | Rename images using image metadata. Output format *(camera model)-yyyymmdd_hhmmss_(sequence number).jpg* . A sequential number will be added to the end of filename collisions. |
 | img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and a user-provided time interval in minutes e.g. 2026-05-05_17/30min/ |
 | img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
