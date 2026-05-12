@@ -9,12 +9,19 @@ img_rename() {
     local output=$2   # output folder
 
 	# Validate input parameters
-	if [ $# -ne 2 ]; then
-		echo "Function requires exactly 2 arguments (input folder and output folder)"
-		echo "Example: This command will rename all jpeg images using the format camera-make_yyyymmdd_hhmmss. A sequential number will be added to the end of filename collisions. Files are copied to the output directory."
-		echo "img_rename input output"
-	return 1
-	fi
+	# if [ $# -ne 2 ]; then
+		# echo "Function requires exactly 2 arguments (input folder and output folder)"
+		# echo "Example: This command will rename all jpeg images using the format camera-make_yyyymmdd_hhmmss. A sequential number will be added to the end of filename collisions. Files are copied to the output directory."
+		# echo "img_rename input output"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: img_rename [input_folder] [output_folder]"
+        echo "Example: img_rename ./input ./output"
+        return 1
+    fi
 	
 	# Run the command
     # exiftool -if $etool_ext \
@@ -30,12 +37,20 @@ img_group() {
 	local output=$2   # output folder
 
 	# Validate input parameters
-	if [ $# -ne 2 ]; then
-		echo "Function requires exactly 2 arguments (input folder and output folder)"
-		echo "Example: This command will copy the jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour."
-		echo "img_group input output"
-	return 1
-	fi
+	# if [ $# -ne 2 ]; then
+		# echo "Function requires exactly 2 arguments (input folder and output folder)"
+		# echo "Example: This command will copy the jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour."
+		# echo "img_group input output"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: img_group [input_folder] [output_folder]"
+        echo "Example: img_group ./input ./output"
+        return 1
+    fi
+	
 	
 	# Run the command
     # exiftool -if $etool_ext "-Directory<CreateDate" \
@@ -54,7 +69,7 @@ img_group_mins() {
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
         echo "Usage: img_group_mins [input_folder] [output_folder] [interval_in_minutes] "
-        echo "Example: img_group_mins ./original ./grouped 30"
+        echo "Example: img_group_mins ./input ./output 30"
         return 1
     fi
 
@@ -77,12 +92,19 @@ img_write_desc() {
 	local keywords=$3 	
 
 	# Validate input parameters
-	if [ $# -ne 3 ]; then
-		echo "Function requires exactly 3 arguments (input folder, title, and keywords)"
-		echo "Example: This command will write a title and keywords to all jpeg images in the input directory. Keywords should be separated by semi-colons for MS Windows."
-		echo 'img_write_desc ./input "Autumn leaves in a suburban street" "landscape; trees; autumn" '
-	return 1
-	fi
+	# if [ $# -ne 3 ]; then
+		# echo "Function requires exactly 3 arguments (input folder, title, and keywords)"
+		# echo "Example: This command will write a title and keywords to all jpeg images in the input directory. Keywords should be separated by semi-colons for MS Windows."
+		# echo 'img_write_desc ./input "Autumn leaves in a suburban street" "landscape; trees; autumn" '
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: img_write_desc [input_folder] [title] [keywords] "
+        echo 'Example: img_write_desc ./input "Autumn leaves" "landscape; trees;"'
+        return 1
+    fi
 	
 	# Run the command
     # exiftool -if $etool_ext -overwrite_original \
@@ -97,12 +119,19 @@ img_cp() {
 	local output=$2
 	
 	# Validate input parameters
-	if [ $# -ne 2 ]; then
-		echo "Function requires exactly 2 arguments (input folder, output folder)"
-		echo "Example: This command would copy all jpeg images from ./input to ./ouput:" 
-		echo "img_cp input ouput"
-	return 1
-	fi
+	# if [ $# -ne 2 ]; then
+		# echo "Function requires exactly 2 arguments (input folder, output folder)"
+		# echo "Example: This command would copy all jpeg images from ./input to ./ouput:" 
+		# echo "img_cp input ouput"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: img_cp [input_folder] [output_folder]"
+        echo "Example: img_cp ./input ./output"
+        return 1
+    fi
 	
 	mkdir -p -v "$output"
 	
@@ -115,13 +144,21 @@ img_rm() {
 	local input=$1
 	
 	# Validate input parameters
-	if [ $# -ne 1 ]; then
-		echo "Function requires exactly 1 argument (folder to delete).
-		Images will be deleted recursively."
-		echo "Example: This command would delete all jpeg images and empty directories recursively from ./input:"
-		echo "img_rm input"
-	return 1
-	fi
+	# if [ $# -ne 1 ]; then
+		# echo "Function requires exactly 1 argument (folder to delete).
+		# Images will be deleted recursively."
+		# echo "Example: This command would delete all jpeg images and empty directories recursively from ./input:"
+		# echo "img_rm input"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ]; then
+        echo "Usage: img_rm [input_folder] [output_folder]"
+        echo "Example: img_rm ./input"
+		echo "WARNING: This process cannot be undone."
+        return 1
+    fi
 	
 	find "$input" -type f -iregex $regex_ext -exec rm -v {} \;
 	
@@ -135,16 +172,23 @@ img_resize() {
 	local new_width=$3
 	
 	# Validate input parameters
-	if [ $# -ne 3 ]; then
-		echo "Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or percent)."
-		echo "Example: This command would resize all jpeg images in ./input to 50% of their original width:"
-		echo "img_resize input output 50%"
-	return 1
-	fi
+	# if [ $# -ne 3 ]; then
+		# echo "Function requires exactly 3 arguments (input directory or filename, output directory, and new width as px or percent)."
+		# echo "Example: This command would resize all jpeg images in ./input to 50% of their original width:"
+		# echo "img_resize input output 50%"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: img_resize [input_folder] [output_folder] [new_width_px_or_%] "
+        echo "Example: img_resize ./input ./output 50%"
+        return 1
+    fi
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$2" -resize "$3" "$1" \;
+	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$output" -resize "$new_width" {} +
 }
 
 
@@ -152,17 +196,24 @@ img_rotate() {
 	
 	local input=$1
 	local output=$2
-	local new_width=$3
+	local angle=$3
 	
 	# Validate input parameters
-	if [ $# -ne 3 ]; then
-		echo "Function requires exactly 3 arguments (input directory or filename, output directory, and the rotation angle in degrees)."
-		echo "Example: This command would rotate all jpeg images in ./input 90 degrees clockwise:"
-		echo "img_resize input output 90"
-	return 1
-	fi
+	# if [ $# -ne 3 ]; then
+		# echo "Function requires exactly 3 arguments (input directory or filename, output directory, and the rotation angle in degrees)."
+		# echo "Example: This command would rotate all jpeg images in ./input 90 degrees clockwise:"
+		# echo "img_resize input output 90"
+	# return 1
+	# fi
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+        echo "Usage: img_rotate [input_folder] [output_folder] [angle_degrees] "
+        echo "Example: img_rotate ./input ./output 90"
+        return 1
+    fi
 		
 	mkdir -p -v "$output"
 	
-	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$2" -rotate "$3" "$1" \;
+	find "$input" -type f -iregex $regex_ext -exec magick mogrify -path "$output" -resize "$angle" {} +
 }

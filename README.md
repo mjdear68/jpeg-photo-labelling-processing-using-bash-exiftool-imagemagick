@@ -12,12 +12,12 @@ directory or individual-file level.
 
 ## Functions
 
-The Functions Summary Table lists the functions and their purpose. Calling a function without parameters will print a description of the function and a usage example.
+The Functions Summary Table lists the functions and their purpose. Calling a function without parameters will print the function's usage.
 
 
 | Name | Purpose |
 |------|---------|
-| img_rename | Rename images using image metadata. Format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* |
+| img_rename | Rename images using image metadata. Output format *(camera model)-yyymmdd_hhmmss_(sequence number).jpg* . A sequential number will be added to the end of filename collisions. |
 | img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and hour e.g. 2026-05-05_1700 |
 | img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
