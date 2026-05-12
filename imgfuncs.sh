@@ -24,24 +24,6 @@ img_rename() {
 
 img_group() {
 
-	local input=$1    # input folder
-	local output=$2   # output folder
-
-	# Safety Check: Ensure all arguments are provided
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_group [input_folder] [output_folder]"
-        echo "Example: img_group ./input ./output"
-        return 1
-    fi
-	
-	# Run the command
-	find "$input" -type f -iregex $regex_ext | \
-			exiftool "-Directory<CreateDate" \
-             -r -o . -d "$output/%Y-%m-%d_%H00" -@ -
-}
-
-img_group_mins() {
-
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
         echo "Usage: img_group_mins [input_folder] [output_folder] [interval_in_minutes] "
