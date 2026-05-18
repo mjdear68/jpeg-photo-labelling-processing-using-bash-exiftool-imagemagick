@@ -51,8 +51,8 @@ img_desc() {
 	
 	# Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: img_write_desc [input_folder] [title] [keywords] "
-        echo 'Example: img_write_desc ./input "Autumn leaves" "landscape; trees;"'
+        echo "Usage: img_desc [input_folder] [title] [keywords] "
+        echo 'Example: img_desc ./input "Autumn leaves" "landscape; trees;"'
         return 1
     fi
 	
@@ -61,6 +61,39 @@ img_desc() {
 		exiftool -overwrite_original -Title="$title" -Keywords="$keywords" -@ -
 }
 
+img_gps_read() {
+	local input=$1 		# input folder
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ]; then
+        echo "Usage: img_gps_read [input_folder] [latitude(decimal)] [longitude(decimal)] [altitude(m)]"
+        echo 'Example: img_gps_read ./input' 
+        return 1
+    fi
+	
+	# Run the command
+	find "$input" -type f -iregex $regex_ext | \
+		exiftool -c '%.8f' -GPS* -@ -
+}
+
+
+img_gps_write() {
+	local input=$1 		# input folder
+	local lat=$2    
+	local lon=$3
+	local alt=$4
+	
+	# Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+        echo "Usage: img_gps_write [input_folder] [latitude(decimal)] [longitude(decimal)] [altitude(m)]"
+        echo 'Example: img_gps_write ./input "-33.56" "150.13" "1046"'
+        return 1
+    fi
+	
+	# Run the command
+	find "$input" -type f -iregex $regex_ext | \
+		exiftool -overwrite_original -GPSLatitude*="$lat" -GPSLongitude*="$lon" -GPSAltitude*="$alt" -@ -
+}
 
 img_cp() {
 	
