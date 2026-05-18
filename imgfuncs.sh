@@ -44,7 +44,7 @@ img_group() {
 }
 
 
-img_write_desc() {
+img_desc() {
 	local input=$1 		# input folder
 	local title=$2    
 	local keywords=$3 	

@@ -19,7 +19,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 |------|---------|
 | img_rename | Rename images using image metadata. Output format *(camera model)-yyyymmdd_hhmmss_(sequence number).jpg* . A sequential number will be added to the end of filename collisions. |
 | img_group | Copies jpeg images from the input directory into subdirectories of the output directory grouped by create date and a user-provided time interval in minutes e.g. 2026-05-05_17/30min/ |
-| img_write_desc | Writes a title and keywords to all jpeg images in the input directory. |
+| img_desc | Writes a title and keywords to all jpeg images in the input directory. |
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
 | img_rm | Delete all jpeg images and empty directories recursively from the input directory.|
 | img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
@@ -52,7 +52,7 @@ Although the functions can be used independently, they are best used as a part o
 | Manual review - delete unwanted images | File manager or photo organiser GUI |
 | Rename images | `img_rename original output/renamed` |
 | Group images | `img_group output/renamed output/grouped` |
-| Manual review, then write title and keywords | `img_write_desc output/grouped/date_hour/mins "Image title" "kwd1; kwd2; kwd3"` |
+| Manual review, then write title and keywords | `img_desc output/grouped/date_hour/mins "Image title" "kwd1; kwd2; kwd3"` |
 | Copy to image archive | `img_cp output/grouped archive_dir` |
 | Clean up | `img_rm output` |
 
