@@ -2,8 +2,8 @@
 # https://raw.githubusercontent.com/github/gitignore/refs/heads/main/Global/Windows.gitignore
 [Dd]esktop.ini
 
-# Output Folders
-/output/
+# Folders
+/photos/
 
 
 *.pdf
