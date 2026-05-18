@@ -74,6 +74,8 @@ img_gps_read() {
 	# Run the command
 	find "$input" -type f -iregex $regex_ext | \
 		exiftool -c '%.8f' -GPS* -@ -
+	
+	# https://gis.stackexchange.com/a/326689
 }
 
 
@@ -93,6 +95,8 @@ img_gps_write() {
 	# Run the command
 	find "$input" -type f -iregex $regex_ext | \
 		exiftool -overwrite_original -GPSLatitude*="$lat" -GPSLongitude*="$lon" -GPSAltitude*="$alt" -@ -
+		
+	# https://exiftool.org/forum/index.php?msg=68228
 }
 
 img_cp() {
