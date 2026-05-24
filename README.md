@@ -10,6 +10,8 @@ The imgfuncs.sh file contains *Bash* functions for renaming files with metadata,
 keywords and titles to metadata, and rotating and resizing images. The functions work on a 
 directory or individual-file level.
 
+*N.B. These functions have been developed and tested for Git Bash on Microsoft Windows 11. They are not guranteed to work in other Bash environments.*
+
 ## Functions
 
 The Functions Summary Table lists the functions and their purpose. Calling a function without parameters will print the function's usage.

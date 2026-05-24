@@ -39,10 +39,13 @@ to process JPEG photographic images. The imgfuncs.sh file contains
 <em>Bash</em> functions for renaming files with metadata, writing
 keywords and titles to metadata, and rotating and resizing images. The
 functions work on a directory or individual-file level.</p>
+<p><em>N.B. These functions have been developed and tested for Git Bash
+on Microsoft Windows 11. They are not guranteed to work in other Bash
+environments.</em></p>
 <h2 id="functions">Functions</h2>
 <p>The Functions Summary Table lists the functions and their purpose.
-Calling a function without parameters will print a description of the
-function and a usage example.</p>
+Calling a function without parameters will print the function’s
+usage.</p>
 <table>
 <caption>Functions Summary Table</caption>
 <colgroup>
@@ -58,17 +61,18 @@ function and a usage example.</p>
 <tbody>
 <tr>
 <td>img_rename</td>
-<td>Rename images using image metadata. Format <em>(camera
-model)-yyymmdd_hhmmss_(sequence number).jpg</em></td>
+<td>Rename images using image metadata. Output format <em>(camera
+model)-yyyymmdd_hhmmss_(sequence number).jpg</em> . A sequential number
+will be added to the end of filename collisions.</td>
 </tr>
 <tr>
 <td>img_group</td>
 <td>Copies jpeg images from the input directory into subdirectories of
-the output directory grouped by create date and hour
-e.g. 2026-05-05_1700</td>
+the output directory grouped by create date and a user-provided time
+interval in minutes e.g. 2026-05-05_17/30min/</td>
 </tr>
 <tr>
-<td>img_write_desc</td>
+<td>img_desc</td>
 <td>Writes a title and keywords to all jpeg images in the input
 directory.</td>
 </tr>
@@ -166,29 +170,27 @@ is in the current directory)</td>
 </tr>
 <tr>
 <td>Rename images</td>
-<td><code>img_rename original renamed</code></td>
+<td><code>img_rename original output/renamed</code></td>
 </tr>
 <tr>
 <td>Group images</td>
-<td><code>img_group renamed grouped</code></td>
+<td><code>img_group output/renamed output/grouped</code></td>
 </tr>
 <tr>
 <td>Manual review, then write title and keywords</td>
-<td><code>img_write_desc group_dir "Image title" "kwd1; kwd2; kwd3"</code></td>
+<td><code>img_desc output/grouped/date_hour/mins "Image title" "kwd1; kwd2; kwd3"</code></td>
 </tr>
 <tr>
 <td>Copy to image archive</td>
-<td><code>img_cp grouped archive_dir</code></td>
+<td><code>img_cp output/grouped archive_dir</code></td>
 </tr>
 <tr>
 <td>Clean up</td>
-<td><code>img_rm .</code></td>
+<td><code>img_rm output</code></td>
 </tr>
 </tbody>
 </table>
-<p>Resizing and rotating images is not a part of my regular workflow. I
-usually complete these operations as the need arises by copying the
-relevant files to a separate directory after the main processing
-workflow.</p>
+<p>I usually complete resizing and rotating of individual files after
+the main processing workflow.</p>
 </body>
 </html>
