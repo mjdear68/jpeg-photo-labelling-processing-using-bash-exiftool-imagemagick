@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>README</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -38,10 +36,9 @@ Date: May 2026</p>
 to process JPEG photographic images. The imgfuncs.sh file contains
 <em>Bash</em> functions for renaming files with metadata, writing
 keywords and titles to metadata, and rotating and resizing images. The
-functions work on a directory or individual-file level.</p>
-<p><em>N.B. These functions have been developed and tested for Git Bash
-on Microsoft Windows 11. They are not guranteed to work in other Bash
-environments.</em></p>
+functions work on a directory or individual-file level. The functions
+have been tested in Git Bash on Windows 11 and Bash on Ubuntu Linux
+(WSL).</p>
 <h2 id="functions">Functions</h2>
 <p>The Functions Summary Table lists the functions and their purpose.
 Calling a function without parameters will print the function’s
@@ -85,6 +82,16 @@ directory.</td>
 <td>img_rm</td>
 <td>Delete all jpeg images and empty directories recursively from the
 input directory.</td>
+</tr>
+<tr>
+<td>img_gps_read</td>
+<td>Read all GPS information from the metadata and print them to the
+screen.</td>
+</tr>
+<tr>
+<td>img_gps_write</td>
+<td>Write GPS latitude, longitude - both in decimal degrees - and
+altitude (metres) to all jpeg images in the input directory.</td>
 </tr>
 <tr>
 <td>img_resize</td>
@@ -190,7 +197,7 @@ is in the current directory)</td>
 </tr>
 </tbody>
 </table>
-<p>I usually complete resizing and rotating of individual files after
-the main processing workflow.</p>
+<p>Additional steps to be completed as required: * rotate images *
+resize images * write GPS information to images</p>
 </body>
 </html>
