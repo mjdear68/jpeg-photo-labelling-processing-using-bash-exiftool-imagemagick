@@ -64,7 +64,7 @@ img_gps_cp() {
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
         echo "Usage: img_gps_cp [reference_image] [input_folder]"
-        echo 'Example: img_gps_cp ./input ref.jpg'
+        echo 'Example: img_gps_cp ref.jpg ./input'
         return 1
     fi
     
