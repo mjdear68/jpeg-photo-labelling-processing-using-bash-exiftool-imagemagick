@@ -22,8 +22,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | img_desc | Writes a title and keywords to all jpeg images in the input directory. |
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
 | img_rm | Delete all jpeg images and empty directories recursively from the input directory.|
-| img_gps_read | Read all GPS information from the metadata and print them to the screen. |
-| img_gps_write | Write GPS latitude, longitude - both in decimal degrees - and altitude (metres) to all jpeg images in the input directory. |
+| img_gps_cp | Copy GPS latitude, longitude - both in decimal degrees - and altitude (metres) from a reference image to all jpeg images in the input directory. |
 | img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
 | img_rotate | Rotates all jpeg images in the input directory n degrees clockwise. Writes rotated images to the output directory. |
 
@@ -63,4 +62,4 @@ Although the functions can be used independently, they are best used as a part o
 Additional steps to be completed as required:
 * rotate images
 * resize images
-* write GPS information to images
+* copy GPS information from a reference image to non-GPS images
