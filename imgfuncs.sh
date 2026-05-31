@@ -90,6 +90,22 @@ img_gps_write() {
         exiftool -overwrite_original -GPSLatitude*="$lat" -GPSLongitude*="$lon" -GPSAltitude*="$alt" -@ -
 }
 
+img_gps_cp() {
+    local input=$1      # input folder
+    local ref=$2    
+    
+    # Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: img_gps_cp [input_folder] [reference_image]"
+        echo 'Example: img_gps_cp ./input ref.jpg'
+        return 1
+    fi
+    
+    # Run the command
+    find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
+        exiftool -overwrite_original -tagsfromfile "$ref" -GPSLatitude* -GPSLongitude* -GPSAltitude* -@ -
+}
+
 img_cp() {
     local input=$1
     local output=$2
