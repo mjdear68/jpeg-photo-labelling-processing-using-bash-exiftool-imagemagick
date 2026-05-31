@@ -60,6 +60,7 @@ Although the functions can be used independently, they are best used as a part o
 : Image Processing Workflow
 
 Additional steps to be completed as required:
+
 * rotate images
 * resize images
 * copy GPS information from a reference image to non-GPS images
