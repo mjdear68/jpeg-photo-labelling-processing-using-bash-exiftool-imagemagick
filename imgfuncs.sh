@@ -58,12 +58,12 @@ img_desc() {
 }
 
 img_gps_cp() {
-    local input=$1      # input folder
-    local ref=$2    
-    
+    local ref=$1      # reference image
+    local input=$2    # input folder
+
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_gps_cp [input_folder] [reference_image]"
+        echo "Usage: img_gps_cp [reference_image] [input_folder]"
         echo 'Example: img_gps_cp ./input ref.jpg'
         return 1
     fi
