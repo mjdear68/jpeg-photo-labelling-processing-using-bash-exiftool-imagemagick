@@ -18,9 +18,11 @@ vid_conv() {
     local base=$(basename "$ref_img")
 
     # Strip the extension (remove everything after the last .)
-    local vid_out="${vid_in%/*}/${base%.*}.mp4"
+    local vid_converted="${vid_in%/*}/${base%.*}.mp4"
 
     # Convert the video using ffmpeg with the specified compression level and write to the same directory as the original video with the same name but .mp4 extension
-     ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_out"
+     ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_converted"
 
+    # Copy the GPS metadata from the reference image to the converted video using exiftool
+     exiftool -overwrite_original -tagsfromfile "$ref_img" -CreateDate -GPSLatitude* -GPSLongitude* -GPSAltitude* "$vid_converted"
 }
