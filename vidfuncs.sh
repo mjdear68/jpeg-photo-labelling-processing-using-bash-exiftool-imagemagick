@@ -18,8 +18,9 @@ vid_conv() {
     local base=$(basename "$ref_img")
 
     # Strip the extension (remove everything after the last .)
-    local vid_out="${base%.*}.mp4"
+    local vid_out="${vid_in%/*}/${base%.*}.mp4"
 
+    # Convert the video using ffmpeg with the specified compression level and write to the same directory as the original video with the same name but .mp4 extension
      ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_out"
 
 }
