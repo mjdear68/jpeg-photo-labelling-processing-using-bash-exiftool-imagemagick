@@ -14,10 +14,10 @@ vid_conv() {
     local ref_img=$2        # reference image
     local comp_level=$3     # compression level (0-51, where 0 is lossless and 51 is worst quality)
 
-    # 1. Strip the directory path (keep everything after the last /)
-    local base=$(basename "$vid_in")
+    # Strip the directory path (keep everything after the last /)
+    local base=$(basename "$ref_img")
 
-    # 2. Strip the extension (remove everything after the last .)
+    # Strip the extension (remove everything after the last .)
     local vid_out="${base%.*}.mp4"
 
      ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_out"
