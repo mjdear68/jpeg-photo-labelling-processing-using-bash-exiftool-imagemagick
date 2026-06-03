@@ -21,8 +21,15 @@ vid_conv() {
     local vid_converted="${vid_in%/*}/${base%.*}.mp4"
 
     # Convert the video using ffmpeg with the specified compression level and write to the same directory as the original video with the same name but .mp4 extension
-     ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_converted"
-
+    ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_converted"
+    
     # Copy the GPS and creation date with time zone metadata from the reference image to the converted video using exiftool
-     exiftool -overwrite_original -tagsfromfile "$ref_img" -CreateDate -DateTimeOriginal -GPSLatitude* -GPSLongitude* -GPSAltitude* "$vid_converted"
+    # exiftool -overwrite_original -tagsfromfile "$ref_img" -*date* -GPS*  "$vid_converted"
+
+    # Copy GPS and creation date with UTC/Timezone handling using ExifTool
+    exiftool -overwrite_original -api QuickTimeUTC=1 -tagsfromfile "$ref_img" \
+        -Make -Model -*date* -Title -Keywords -GPS* \
+        '-QuickTime:CreationDate<$DateTimeOriginal' \
+        '-QuickTime:DateTimeOriginal<$DateTimeOriginal' \
+        "$vid_converted"
 }
