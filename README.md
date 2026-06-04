@@ -1,14 +1,14 @@
-# JPEG Photographic Image Labelling and Processing Using Bash, ExifTool, and ImageMagick
+# Image and Video Tagging and Processing Using Bash Command Line Tools
 
 Author: Michael Dear  
-Date: May 2026
+Created: May 2026
+Updated: 2026-06-03
 
 ## About
 
-This project uses *ExifTool* and *ImageMagick* commands to process JPEG photographic images. 
-The imgfuncs.sh file contains *Bash* functions for renaming files with metadata, writing 
-keywords and titles to metadata, and rotating and resizing images. The functions work on a 
-directory or individual-file level. The functions have been tested in Git Bash on Windows 11 and Bash on Ubuntu Linux (WSL). 
+This project uses Bash command-line tools - *ExifTool*, *ImageMagick*, *ffmpeg* - to label and process JPEG photographic images and video files.
+The imgfuncs.sh file contains *Bash* functions for renaming files using metadata, writing 
+keywords and titles to metadata, rotating and resizing images, and converting videos to *.mp4* to enable compression and metadata tagging. The functions have been developed using Bash on Ubuntu Linux (WSL). 
 
 ## Functions
 
@@ -25,6 +25,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | img_gps_cp | Copy GPS latitude, longitude - both in decimal degrees - and altitude (metres) from a reference image to all jpeg images in the input directory. |
 | img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
 | img_rotate | Rotates all jpeg images in the input directory n degrees clockwise. Writes rotated images to the output directory. |
+| vid_conv | Convert a video to .mp4 format and copy metadata tags from a tagged reference image. |
 
 : Functions Summary Table  
 
@@ -36,13 +37,14 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | [Git Bash (5.2.26(1)-release x86_64-pc-msys)](https://git-scm.com/) | Shell: executing the functions in imgfuncs.sh; copying and deleting files  |
 | [ExifTool (13.45)](https://exiftool.org/)  | Accessing image metadata: reading, writing, and file renaming. |
 | [ImageMagick (7.1.2-17 Q16-HDRI x64)](https://imagemagick.org/) | Image manipulation: resizing and rotating. |
+| [ffmpeg 8.0.1-3ubuntu2](https://www.ffmpeg.org/) |
 
 : Tools Summary Table
 
 
 ## Workflow 
 
-Although the functions can be used independently, they are best used as a part of an image processing workflow. My typical workflow follows the steps in the Image Processing Workflow table.
+Although the functions can be used independently, they are best used as a part of an media processing workflow. My typical workflow follows the steps in the Media Processing Workflow table.
 
 | Step | Command |
 |------|---------|
@@ -55,9 +57,11 @@ Although the functions can be used independently, they are best used as a part o
 | Group images | `img_group output/renamed output/grouped` |
 | Manual review, then write title and keywords | `img_desc output/grouped/date_hour/mins "Image title" "kwd1; kwd2; kwd3"` |
 | Copy to image archive | `img_cp output/grouped archive_dir` |
+| Process videos using tagged reference images | `vid_conv vid.avi ref_img.jpg 18`  |
 | Clean up | `img_rm output` |
+| Copy processed videos to video archive | This is currently a manual process. A vid_cp function to be added in a future version. | 
 
-: Image Processing Workflow
+: Media Processing Workflow
 
 Additional steps to be completed as required:
 

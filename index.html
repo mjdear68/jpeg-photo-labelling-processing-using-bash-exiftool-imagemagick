@@ -26,18 +26,18 @@
 </head>
 <body>
 <h1
-id="jpeg-photographic-image-labelling-and-processing-using-bash-exiftool-and-imagemagick">JPEG
-Photographic Image Labelling and Processing Using Bash, ExifTool, and
-ImageMagick</h1>
+id="image-and-video-tagging-and-processing-using-bash-command-line-tools">Image
+and Video Tagging and Processing Using Bash Command Line Tools</h1>
 <p>Author: Michael Dear<br />
-Date: May 2026</p>
+Created: May 2026 Updated: 2026-06-03</p>
 <h2 id="about">About</h2>
-<p>This project uses <em>ExifTool</em> and <em>ImageMagick</em> commands
-to process JPEG photographic images. The imgfuncs.sh file contains
-<em>Bash</em> functions for renaming files with metadata, writing
-keywords and titles to metadata, and rotating and resizing images. The
-functions work on a directory or individual-file level. The functions
-have been tested in Git Bash on Windows 11 and Bash on Ubuntu Linux
+<p>This project uses Bash command-line tools - <em>ExifTool</em>,
+<em>ImageMagick</em>, <em>ffmpeg</em> - to label and process JPEG
+photographic images and video files. The imgfuncs.sh file contains
+<em>Bash</em> functions for renaming files using metadata, writing
+keywords and titles to metadata, rotating and resizing images, and
+converting videos to <em>.mp4</em> to enable compression and metadata
+tagging. The functions have been developed using Bash on Ubuntu Linux
 (WSL).</p>
 <h2 id="functions">Functions</h2>
 <p>The Functions Summary Table lists the functions and their purpose.
@@ -100,6 +100,11 @@ output directory.</td>
 <td>Rotates all jpeg images in the input directory n degrees clockwise.
 Writes rotated images to the output directory.</td>
 </tr>
+<tr>
+<td>vid_conv</td>
+<td>Convert a video to .mp4 format and copy metadata tags from a tagged
+reference image.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="tools">Tools</h2>
@@ -131,14 +136,18 @@ files</td>
 x64)</a></td>
 <td>Image manipulation: resizing and rotating.</td>
 </tr>
+<tr>
+<td><a href="https://www.ffmpeg.org/">ffmpeg 8.0.1-3ubuntu2</a></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h2 id="workflow">Workflow</h2>
 <p>Although the functions can be used independently, they are best used
-as a part of an image processing workflow. My typical workflow follows
-the steps in the Image Processing Workflow table.</p>
+as a part of an media processing workflow. My typical workflow follows
+the steps in the Media Processing Workflow table.</p>
 <table>
-<caption>Image Processing Workflow</caption>
+<caption>Media Processing Workflow</caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -188,8 +197,17 @@ is in the current directory)</td>
 <td><code>img_cp output/grouped archive_dir</code></td>
 </tr>
 <tr>
+<td>Process videos using tagged reference images</td>
+<td><code>vid_conv vid.avi ref_img.jpg 18</code></td>
+</tr>
+<tr>
 <td>Clean up</td>
 <td><code>img_rm output</code></td>
+</tr>
+<tr>
+<td>Copy processed videos to video archive</td>
+<td>This is currently a manual process. A vid_cp function to be added in
+a future version.</td>
 </tr>
 </tbody>
 </table>
