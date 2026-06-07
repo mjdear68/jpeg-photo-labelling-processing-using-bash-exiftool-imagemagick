@@ -187,3 +187,49 @@ vid_conv() {
         '-QuickTime:DateTimeOriginal<$DateTimeOriginal' \
         "$vid_converted"
 }
+
+vid_batch_conv() {
+    # 1. Accept two directory paths as arguments, plus compression level
+    local dir1="$1"
+    local dir2="$2"
+    local comp_level="$3" # compression level (0-51, where 0 is lossless and 51 is worst quality)
+
+    # Validate that all arguments are provided and are actual directories
+    if [[ -z "$dir1" || -z "$dir2" || -z "$comp_level" ]]; then
+        echo "Error: Please provide two directory paths and a compression level." >&2
+        echo "Usage: vid_conv [input_video_dir] [reference_image_dir] [compression_level]" >&2
+        echo "Example: vid_conv ./input_vids/ ./reference_imgs/ 20" >&2
+        return 1
+    fi
+
+    if [[ ! -d "$dir1" || ! -d "$dir2" ]]; then
+        echo "Error: One or both provided paths are not valid directories." >&2
+        return 1
+    fi
+
+    # Read filenames into array $files1 (ignoring directory paths, tracking only base names)
+    local files1=()
+    mapfile -t files1 < <(find "$dir1" -maxdepth 1 -type f -printf '%f\n')
+
+    # 2. Read another directory of filenames into $files2
+    local files2=()
+    mapfile -t files2 < <(find "$dir2" -maxdepth 1 -type f -printf '%f\n')
+
+    # Get the lengths of both arrays
+    local len1=${#files1[@]}
+    local len2=${#files2[@]}
+
+    # 3. If length of $files1 != length of $files2, halt and print an error message
+    if (( len1 != len2 )); then
+        echo "Error: Directory file counts do not match!" >&2
+        echo "  First directory has $len1 files." >&2
+        echo "  Second directory has $len2 files." >&2
+        return 1
+    else
+        # 4. Else, loop through the length and convert the videos in $files1 using the corresponding reference images in $files2, pairing them up by their index in the arrays
+        for (( i=0; i<len1; i++ )); do
+            echo "Video file:  ${files1[i]}  Reference file: ${files2[i]}"
+            vid_conv "${dir1}/${files1[i]}" "${dir2}/${files2[i]}" "$comp_level"
+        done
+    fi
+}
