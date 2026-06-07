@@ -198,7 +198,6 @@ vid_batch_conv() {
 
     # Validate that all arguments are provided and are actual directories
     if [[ -z "$vid_dir" || -z "$ref_dir" || -z "$output_dir" || -z "$comp_level" ]]; then
-        echo "Error: Please provide two directory paths, an output directory, and a compression level." >&2
         echo "Usage: vid_batch_conv [input_video_dir] [reference_image_dir] [output_dir] [compression_level]" >&2
         echo "Example: vid_batch_conv ./input_vids/ ./reference_imgs/ ./output 20" >&2
         return 1
