@@ -160,7 +160,7 @@ vid_conv() {
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
         echo "Usage: vid_conv [input_video] [reference_image] [compression_level]"
-        echo "Example: vid_conv ./input.mp4 ./reference.jpg 23"
+        echo "Example: vid_conv ./input.avi ./reference.jpg 20"
         return 1
     fi
 

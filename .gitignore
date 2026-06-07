@@ -3,10 +3,10 @@
 [Dd]esktop.ini
 
 # Folders
-/photos/
-/videos/
-/ref/
+/media/
 
+# To be removed later
+test_func.sh
 
 *.pdf
 
