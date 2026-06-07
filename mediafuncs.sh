@@ -158,21 +158,22 @@ img_rotate() {
 
 vid_conv() {
     # Safety Check: Ensure all arguments are provided
-    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: vid_conv [input_video] [reference_image] [compression_level]"
-        echo "Example: vid_conv ./input.avi ./reference.jpg 20"
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+        echo "Usage: vid_conv [input_video] [reference_image] [output_dir] [compression_level]"
+        echo "Example: vid_conv ./input.avi ./reference.jpg ./output 20"
         return 1
     fi
 
     local vid_in=$1         # input video
     local ref_img=$2        # reference image
-    local comp_level=$3     # compression level (0-51, where 0 is lossless and 51 is worst quality)
+    local output_dir=$3     # output directory
+    local comp_level=$4     # compression level (0-51, where 0 is lossless and 51 is worst quality)
 
     # Strip the directory path (keep everything after the last /)
     local base=$(basename "$ref_img")
 
     # Strip the extension (remove everything after the last .)
-    local vid_converted="${vid_in%/*}/${base%.*}.mp4"
+    local vid_converted="${output_dir}/${base%.*}.mp4"
 
     # Convert the video using ffmpeg with the specified compression level and write to the same directory as the original video with the same name but .mp4 extension
     ffmpeg -i "$vid_in" -c:v libx265 -crf "$comp_level" -preset slow "$vid_converted"
@@ -189,47 +190,48 @@ vid_conv() {
 }
 
 vid_batch_conv() {
-    # 1. Accept two directory paths as arguments, plus compression level
-    local dir1="$1"
-    local dir2="$2"
-    local comp_level="$3" # compression level (0-51, where 0 is lossless and 51 is worst quality)
+    # 1. Accept video directory,  paths as arguments, plus compression level
+    local vid_dir="$1"
+    local ref_dir="$2"
+    local output_dir="$3"
+    local comp_level="$4" # compression level (0-51, where 0 is lossless and 51 is worst quality)
 
     # Validate that all arguments are provided and are actual directories
-    if [[ -z "$dir1" || -z "$dir2" || -z "$comp_level" ]]; then
-        echo "Error: Please provide two directory paths and a compression level." >&2
-        echo "Usage: vid_conv [input_video_dir] [reference_image_dir] [compression_level]" >&2
-        echo "Example: vid_conv ./input_vids/ ./reference_imgs/ 20" >&2
+    if [[ -z "$vid_dir" || -z "$ref_dir" || -z "$output_dir" || -z "$comp_level" ]]; then
+        echo "Error: Please provide two directory paths, an output directory, and a compression level." >&2
+        echo "Usage: vid_batch_conv [input_video_dir] [reference_image_dir] [output_dir] [compression_level]" >&2
+        echo "Example: vid_batch_conv ./input_vids/ ./reference_imgs/ ./output 20" >&2
         return 1
     fi
 
-    if [[ ! -d "$dir1" || ! -d "$dir2" ]]; then
+    if [[ ! -d "$vid_dir" || ! -d "$ref_dir" ]]; then
         echo "Error: One or both provided paths are not valid directories." >&2
         return 1
     fi
 
-    # Read filenames into array $files1 (ignoring directory paths, tracking only base names)
-    local files1=()
-    mapfile -t files1 < <(find "$dir1" -maxdepth 1 -type f -printf '%f\n')
+    # Read filenames into array $vid_files (ignoring directory paths, tracking only base names)
+    local vid_files=()
+    mapfile -t vid_files < <(find "$vid_dir" -maxdepth 1 -type f -printf '%f\n')
 
-    # 2. Read another directory of filenames into $files2
-    local files2=()
-    mapfile -t files2 < <(find "$dir2" -maxdepth 1 -type f -printf '%f\n')
+    # 2. Read another directory of filenames into $ref_files
+    local ref_files=()
+    mapfile -t ref_files < <(find "$ref_dir" -maxdepth 1 -type f -printf '%f\n')
 
     # Get the lengths of both arrays
-    local len1=${#files1[@]}
-    local len2=${#files2[@]}
+    local len1=${#vid_files[@]}
+    local len2=${#ref_files[@]}
 
-    # 3. If length of $files1 != length of $files2, halt and print an error message
+    # 3. If length of $vid_files != length of $ref_files, halt and print an error message
     if (( len1 != len2 )); then
         echo "Error: Directory file counts do not match!" >&2
         echo "  First directory has $len1 files." >&2
         echo "  Second directory has $len2 files." >&2
         return 1
     else
-        # 4. Else, loop through the length and convert the videos in $files1 using the corresponding reference images in $files2, pairing them up by their index in the arrays
+        # 4. Else, loop through the length and convert the videos in $vid_files using the corresponding reference images in $ref_files, pairing them up by their index in the arrays
         for (( i=0; i<len1; i++ )); do
-            echo "Video file:  ${files1[i]}  Reference file: ${files2[i]}"
-            vid_conv "${dir1}/${files1[i]}" "${dir2}/${files2[i]}" "$comp_level"
+            echo "Video file:  ${vid_files[i]}  Reference file: ${ref_files[i]}"
+            vid_conv "${vid_dir}/${vid_files[i]}" "${ref_dir}/${ref_files[i]}" "$output_dir" "$comp_level"
         done
     fi
 }
