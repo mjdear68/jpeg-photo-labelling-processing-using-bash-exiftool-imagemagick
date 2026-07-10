@@ -1,8 +1,9 @@
 # Image and Video Tagging and Processing Using Bash Command Line Tools
 
-Author: Michael Dear  
-Created: May 2026
-Updated: 2026-06-03
+Author: Michael Dear 
+ 
+Created: May 2026  
+Updated: 2026-07-10
 
 ## About
 
@@ -23,6 +24,7 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | img_cp | Copy all jpeg images from the input directory to the ouput directory. |
 | img_rm | Delete all jpeg images and empty directories recursively from the input directory.|
 | img_gps_cp | Copy GPS latitude, longitude - both in decimal degrees - and altitude (metres) from a reference image to all jpeg images in the input directory. |
+| img_exif_to_csv | Extract Title, Keywords, and GPS-related tags from images in a given directory recursively and write to CSV.  |
 | img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
 | img_rotate | Rotates all jpeg images in the input directory n degrees clockwise. Writes rotated images to the output directory. |
 | vid_conv | Convert a video to .mp4 format and copy metadata tags from a tagged reference image. |
@@ -68,3 +70,4 @@ Additional steps to be completed as required:
 * rotate images
 * resize images
 * copy GPS information from a reference image to non-GPS images
+* extract metadata from a directory of images to csv for import into a GIS

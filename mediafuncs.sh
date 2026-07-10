@@ -137,23 +137,14 @@ img_exif_to_csv() {
     fi
 
     echo "Extracting metadata from '$input' into '$output_csv'..."
-
-    # Run ExifTool targeting standard extensions recursively
-    # exiftool -csv \
-        # -ext jpg -ext jpeg -ext png -ext tiff -ext dng \
-        # -r \
-        # -FileName \
-        # -Title -Subject -Keywords \
-        # -GPSLatitude -GPSLongitude -GPSAltitude \
-        # "$input" > "$output_csv"
 	
 	# Run the command
-	# -c "%.6f" gives decimal coords
+	# -n -c "%.6f" gives signed decimal coords
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -csv -r \
 		-Title -Subject -Keywords \
 		-GPSLatitude* -GPSLongitude* -GPSAltitude* \
-		-c "%.6f" \
+		-n -c "%.6f" \
 		-@ - > "$output_csv"
 
     if [ $? -eq 0 ]; then

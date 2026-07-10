@@ -28,8 +28,9 @@
 <h1
 id="image-and-video-tagging-and-processing-using-bash-command-line-tools">Image
 and Video Tagging and Processing Using Bash Command Line Tools</h1>
-<p>Author: Michael Dear<br />
-Created: May 2026 Updated: 2026-06-03</p>
+<p>Author: Michael Dear</p>
+<p>Created: May 2026<br />
+Updated: 2026-07-10</p>
 <h2 id="about">About</h2>
 <p>This project uses Bash command-line tools - <em>ExifTool</em>,
 <em>ImageMagick</em>, <em>ffmpeg</em> - to label and process JPEG
@@ -88,6 +89,11 @@ input directory.</td>
 <td>Copy GPS latitude, longitude - both in decimal degrees - and
 altitude (metres) from a reference image to all jpeg images in the input
 directory.</td>
+</tr>
+<tr>
+<td>img_exif_to_csv</td>
+<td>Extract Title, Keywords, and GPS-related tags from images in a given
+directory recursively and write to CSV.</td>
 </tr>
 <tr>
 <td>img_resize</td>
@@ -216,6 +222,8 @@ a future version.</td>
 <li>rotate images</li>
 <li>resize images</li>
 <li>copy GPS information from a reference image to non-GPS images</li>
+<li>extract metadata from a directory of images to csv for import into a
+GIS</li>
 </ul>
 </body>
 </html>
