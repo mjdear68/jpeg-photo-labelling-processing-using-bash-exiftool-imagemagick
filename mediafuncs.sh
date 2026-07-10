@@ -119,6 +119,52 @@ img_rm() {
     esac
 }
 
+img_exif_to_csv() {
+	local input="$1"
+	local output_csv="$2"
+	
+    # Safety Check: Ensure all arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: img_exif_to_csv [input_folder] [output_file.csv]"
+		echo "Example: img_exif_to_csv ./input metadata.csv" 
+        return 1
+    fi
+
+    # Verify the target directory actually exists
+    if [ ! -d "$input" ]; then
+        echo "Error: Directory '$input' does not exist."
+        return 1
+    fi
+
+    echo "Extracting metadata from '$input' into '$output_csv'..."
+
+    # Run ExifTool targeting standard extensions recursively
+    # exiftool -csv \
+        # -ext jpg -ext jpeg -ext png -ext tiff -ext dng \
+        # -r \
+        # -FileName \
+        # -Title -Subject -Keywords \
+        # -GPSLatitude -GPSLongitude -GPSAltitude \
+        # "$input" > "$output_csv"
+	
+	# Run the command
+	# -c "%.6f" gives decimal coords
+    find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
+        exiftool -csv -r \
+		-Title -Subject -Keywords \
+		-GPSLatitude* -GPSLongitude* -GPSAltitude* \
+		-c "%.6f" \
+		-@ - > "$output_csv"
+
+    if [ $? -eq 0 ]; then
+        echo "Success! Metadata exported to $output_csv"
+    else
+        echo "An error occurred during extraction."
+        return 1
+    fi
+}
+
+
 img_resize() {
     local input=$1
     local output=$2
