@@ -188,6 +188,32 @@ img_rotate() {
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -rotate "$angle" {} +
 }
 
+img_tint() {
+    # Safety Check: Ensure all 4 arguments are provided
+    if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
+        echo "Usage:   img_tint [input_folder] [output_folder] [fill_colour] [strength%]"
+        echo "Example: img_tint ./input ./output \"rgb(240,200,160)\" 10%"
+        return 1
+    fi
+
+    local input="$1"
+    local output="$2"
+    local fill="$3"
+    local strength="$4"
+
+    # Check if input directory exists
+    if [ ! -d "$input" ]; then
+        echo "Error: Input directory '$input' does not exist."
+        return 1
+    fi
+
+    mkdir -p -v "$output"
+
+    find "$input" -regextype posix-extended -type f -iregex "$regex_ext" \
+        -exec magick mogrify -path "$output" -fill "$fill" -colorize "$strength" {} +
+}
+
+
 
 #########
 # Video Functions
