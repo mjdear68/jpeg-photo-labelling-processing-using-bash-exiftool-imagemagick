@@ -9,16 +9,17 @@ std_ext='jpg'
 ###########
 
 img_rename() {
-    local input=$1    # input folder
-    local output=$2   # output folder
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_rename [input_folder] [output_folder]"
+        echo "Usage: img_rename [input_dir] [output_dir]"
         echo "Example: img_rename ./input ./output"
         return 1
     fi
     
+	# Declare local variables
+	local input=$1    # input directory
+    local output=$2   # output directory
+	
     # Run the command
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
@@ -28,13 +29,14 @@ img_rename() {
 img_group() {
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: img_group_mins [input_folder] [output_folder] [interval_in_minutes] "
+        echo "Usage: img_group_mins [input_dir] [output_dir] [interval_in_minutes] "
         echo "Example: img_group_mins ./input ./output 30"
         return 1
     fi
-
-    local input=$1    # input folder
-    local output=$2   # output folder
+	
+	# Declare local variables
+    local input=$1    # input directory
+    local output=$2   # output directory
     local mins=$3     # minutes per interval
 
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
@@ -45,64 +47,68 @@ img_group() {
 }
 
 img_desc() {
-    local input=$1      # input folder
-    local title=$2    
-    local keywords=$3   
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: img_desc [input_folder] [title] [keywords] "
+        echo "Usage: img_desc [input_dir] [title] [keywords] "
         echo 'Example: img_desc ./input "Autumn leaves" "landscape; trees;"'
         return 1
     fi
     
+	# Declare local variables
+	local input=$1      # input directory
+    local title=$2    	# image title
+    local keywords=$3   # image keywords
+	
     # Run the command
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -overwrite_original -Title="$title" -Keywords="$keywords" -@ -
 }
 
 img_gps_cp() {
-    local ref=$1      # reference image
-    local input=$2    # input folder
-
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_gps_cp [reference_image] [input_folder]"
+        echo "Usage: img_gps_cp [reference_image] [input_dir]"
         echo 'Example: img_gps_cp ref.jpg ./input'
         return 1
     fi
     
+	# Declare local variables
+	local ref=$1      # reference image
+    local input=$2    # input directory
+	
     # Run the command
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -overwrite_original -tagsfromfile "$ref" -GPSLatitude* -GPSLongitude* -GPSAltitude* -@ -
 }
 
 img_cp() {
-    local input=$1
-    local output=$2
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_cp [input_folder] [output_folder]"
+        echo "Usage: img_cp [input_dir] [output_dir]"
         echo "Example: img_cp ./input ./output"
         return 1
     fi
     
+	# Declare local variables
+	local input=$1		# input directory
+    local output=$2		# output directory
+	
     mkdir -p -v "$output"
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec cp -v -r -i {} "$output/" \;
 }
 
 img_rm() {
-    local input=$1
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ]; then
-        echo "Usage: img_rm [input_folder]"
+        echo "Usage: img_rm [input_dir]"
         echo "Example: img_rm ./input"
         echo "WARNING: This process cannot be undone."
         return 1
     fi
     
+	# Declare local variables
+	local input=$1
+	
     # Get user confirmation
     read -p "WARNING: This process cannot be undone. Proceed? [y/N]: " choice
     
@@ -120,16 +126,17 @@ img_rm() {
 }
 
 img_exif_to_csv() {
-	local input="$1"
-	local output_csv="$2"
-	
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: img_exif_to_csv [input_folder] [output_file.csv]"
+        echo "Usage: img_exif_to_csv [input_dir] [output_file.csv]"
 		echo "Example: img_exif_to_csv ./input metadata.csv" 
         return 1
     fi
-
+	
+	# Declare local variables
+	local input="$1"
+	local output_csv="$2"
+	
     # Verify the target directory actually exists
     if [ ! -d "$input" ]; then
         echo "Error: Directory '$input' does not exist."
@@ -157,33 +164,35 @@ img_exif_to_csv() {
 
 
 img_resize() {
-    local input=$1
-    local output=$2
-    local new_width=$3
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: img_resize [input_folder] [output_folder] [new_width_px_or_%] "
+        echo "Usage: img_resize [input_dir] [output_dir] [new_width_px_or_%] "
         echo "Example: img_resize ./input ./output 50%"
         return 1
     fi
-        
+    
+	# Declare local variables
+	local input=$1
+    local output=$2
+    local new_width=$3
+	
     mkdir -p -v "$output"
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -resize "$new_width" {} +
 }
 
 img_rotate() {
-    local input=$1
-    local output=$2
-    local angle=$3
-    
     # Safety Check: Ensure all arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
-        echo "Usage: img_rotate [input_folder] [output_folder] [angle_degrees] "
+        echo "Usage: img_rotate [input_dir] [output_dir] [angle_degrees] "
         echo "Example: img_rotate ./input ./output 90"
         return 1
     fi
-        
+    
+	# Declare local variables
+	local input=$1
+    local output=$2
+    local angle=$3
+	
     mkdir -p -v "$output"
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -rotate "$angle" {} +
 }
@@ -191,11 +200,12 @@ img_rotate() {
 img_tint() {
     # Safety Check: Ensure all 4 arguments are provided
     if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
-        echo "Usage:   img_tint [input_folder] [output_folder] [fill_colour] [strength%]"
+        echo "Usage:   img_tint [input_dir] [output_dir] [fill_colour] [strength%]"
         echo "Example: img_tint ./input ./output \"rgb(240,200,160)\" 10%"
         return 1
     fi
-
+	
+	# Declare local variables
     local input="$1"
     local output="$2"
     local fill="$3"
@@ -226,7 +236,8 @@ vid_conv() {
         echo "Example: vid_conv ./input.avi ./reference.jpg ./output 20"
         return 1
     fi
-
+	
+	# Declare local variables
     local vid_in=$1         # input video
     local ref_img=$2        # reference image
     local output_dir=$3     # output directory
@@ -253,24 +264,25 @@ vid_conv() {
 }
 
 vid_batch_conv() {
-    # 1. Accept video directory,  paths as arguments, plus compression level
-    local vid_dir="$1"
-    local ref_dir="$2"
-    local output_dir="$3"
-    local comp_level="$4" # compression level (0-51, where 0 is lossless and 51 is worst quality)
-
     # Validate that all arguments are provided and are actual directories
     if [[ -z "$vid_dir" || -z "$ref_dir" || -z "$output_dir" || -z "$comp_level" ]]; then
         echo "Usage: vid_batch_conv [input_video_dir] [reference_image_dir] [output_dir] [compression_level]" >&2
         echo "Example: vid_batch_conv ./input_vids/ ./reference_imgs/ ./output 20" >&2
         return 1
     fi
-
+	
+	# Check directories exist
     if [[ ! -d "$vid_dir" || ! -d "$ref_dir" ]]; then
         echo "Error: One or both provided paths are not valid directories." >&2
         return 1
     fi
 
+	# Declare local variables
+    local vid_dir="$1"		# input directory
+    local ref_dir="$2"		# reference image directory
+    local output_dir="$3"	# output directory
+    local comp_level="$4" 	# compression level (0-51, where 0 is lossless and 51 is worst quality)
+	
     # Read filenames into array $vid_files (ignoring directory paths, tracking only base names)
     local vid_files=()
     mapfile -t vid_files < <(find "$vid_dir" -maxdepth 1 -type f -printf '%f\n')
