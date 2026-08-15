@@ -34,7 +34,7 @@ img_rename() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
-    # Run the command
+    # Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool "-filename<$output/\${model;tr/ /_/;s/__+/_/g}-\${datetimeoriginal}" \
              -r -o . -d "%Y%m%d_%H%M%S%%-c.$std_ext" -@ -
@@ -56,6 +56,7 @@ img_group() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
+	# Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
     exiftool  '-Directory<$CreateDate/${CreateDate#;/(\d+):\d+$/;$_=sprintf("%02d",int($1/'"$mins"')*'"$mins"')}min' \
              -o . -d "$output/%Y-%m-%d_%H" \
@@ -79,7 +80,7 @@ img_desc() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
-    # Run the command
+    # Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -overwrite_original -Title="$title" -Keywords="$keywords" -@ -
 }
@@ -99,7 +100,7 @@ img_gps_cp() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
-    # Run the command
+    # Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -overwrite_original -tagsfromfile "$ref" -GPSLatitude* -GPSLongitude* -GPSAltitude* -@ -
 }
@@ -119,7 +120,10 @@ img_cp() {
 	local input=$1		# input directory
     local output=$2		# output directory
 	
-    mkdir -p -v "$output"
+    # Make the output directory if it does not exist
+	mkdir -p -v "$output"
+	
+	# Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec cp -v -r -i {} "$output/" \;
 }
 
@@ -141,6 +145,7 @@ img_rm() {
     # Get user confirmation
     read -p "WARNING: This process cannot be undone. Proceed? [y/N]: " choice
     
+	# Proceed with function execution
     case "$choice" in 
       [yY][eE][sS]|[yY]) 
         echo "Deleting image files and empty directories from '$input' ..."
@@ -169,9 +174,8 @@ img_exif_to_csv() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
-    echo "Extracting metadata from '$input' into '$output_csv'..."
-	
-	# Run the command
+	# Proceed with function execution
+	echo "Extracting metadata from '$input' into '$output_csv'..."
 	# -n -c "%.6f" gives signed decimal coords
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" | \
         exiftool -csv -r \
@@ -205,8 +209,11 @@ img_resize() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
+	# Make the output directory if it does not exist
     mkdir -p -v "$output"
-    find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -resize "$new_width" {} +
+    
+	# Proceed with function execution
+	find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -resize "$new_width" {} +
 }
 
 img_rotate() {
@@ -225,7 +232,10 @@ img_rotate() {
 	# Check if input directory exists
     check_dir "$input" || return 1
 	
+	# Make the output directory if it does not exist
     mkdir -p -v "$output"
+	
+	# Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" -exec magick mogrify -path "$output" -rotate "$angle" {} +
 }
 
@@ -246,11 +256,13 @@ img_tint() {
     # Check if input directory exists
     check_dir "$input" || return 1
 	
+	# Make the output directory if it does not exist
     mkdir -p -v "$output"
+	
+	# Proceed with function execution
     find "$input" -regextype posix-extended -type f -iregex "$regex_ext" \
         -exec magick mogrify -path "$output" -fill "$fill" -colorize "$strength" {} +
 }
-
 
 
 #########
