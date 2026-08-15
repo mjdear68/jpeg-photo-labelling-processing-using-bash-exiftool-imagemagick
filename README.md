@@ -27,7 +27,9 @@ The Functions Summary Table lists the functions and their purpose. Calling a fun
 | img_exif_to_csv | Extract Title, Keywords, and GPS-related tags from images in a given directory recursively and write to CSV.  |
 | img_resize | Resizes all jpeg images in the input directory to a given pixel width or percentage of original size. Writes resized images to the output directory. |
 | img_rotate | Rotates all jpeg images in the input directory n degrees clockwise. Writes rotated images to the output directory. |
+| img_tint | Adds a tint to all jpeg images in the input directory. Writes tinted images to the output directory.|
 | vid_conv | Convert a video to .mp4 format and copy metadata tags from a tagged reference image. |
+| vid_batch_conv | Same as vid_conv, but takes a directory of video files as input. |
 
 : Functions Summary Table  
 
@@ -71,3 +73,4 @@ Additional steps to be completed as required:
 * resize images
 * copy GPS information from a reference image to non-GPS images
 * extract metadata from a directory of images to csv for import into a GIS
+* tint images
