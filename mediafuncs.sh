@@ -112,13 +112,13 @@ img_cp() {
         echo "Example: img_cp ./input ./output"
         return 1
     fi
-    
-	# Check if input directory exists
-    check_dir "$input" || return 1
 	
 	# Declare local variables
 	local input=$1		# input directory
     local output=$2		# output directory
+	
+	# Check if input directory exists
+    check_dir "$input" || return 1
 	
     # Make the output directory if it does not exist
 	mkdir -p -v "$output"
